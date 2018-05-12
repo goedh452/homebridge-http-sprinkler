@@ -1,0 +1,23 @@
+{
+  "name": "homebridge-http-simple-switch",
+  "version": "0.0.2",
+  "description": "http plugin for homebridge",
+  "license": "ISC",
+  "keywords": [
+    "homebridge-plugin"
+  ],
+  "engines": {
+    "node": ">=0.12.0",
+    "homebridge": ">=0.2.0"
+  },
+  "author": {
+    "name": "Luca Critelli"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lucacri/homebridge-http-simple-switch.git"
+  },
+  "dependencies": {
+    "sync-request": "^2.1.0"
+  }
+}
