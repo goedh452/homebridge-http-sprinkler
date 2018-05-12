@@ -48,7 +48,7 @@ HttpSprinkler.prototype = {
     var url = this.status_url;
     var regex = this.statusRegex;
 
-    this.httpRequest(url, "", "GET", function (error, response, responseBody) {
+    this.httpRequest(url, "", "GET", "", "", "", function (error, response, responseBody) {
         if (error) {
             this.log('HTTP get status function failed: %s', error.message);
             callback(error);
