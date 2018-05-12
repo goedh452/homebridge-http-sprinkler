@@ -84,8 +84,13 @@ function HttpSprinkler(log, config) {
 
         statusemitter.on("statuspoll", function(data) {
             if (Boolean(that.statusRegex)) {
-                var re = new RegExp(that.statusRegex);
-                that.state = re.test(data);
+//                var re = new RegExp(that.statusRegex);
+//                that.state = re.test(data);
+		    
+	    var json = JSON.parse(data);
+	    that.log("Waarde status: " + json.result.status);
+            that.state = json.result.status;
+		    
             }
             else {
                 var binaryState = parseInt(data);
