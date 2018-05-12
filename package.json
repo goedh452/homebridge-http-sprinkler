@@ -1,7 +1,7 @@
 {
-  "name": "homebridge-http-simple-switch",
+  "name": "homebridge-http-sprinkler",
   "version": "0.0.2",
-  "description": "http plugin for homebridge",
+  "description": "http sprinkler plugin for homebridge",
   "license": "ISC",
   "keywords": [
     "homebridge-plugin"
@@ -11,11 +11,11 @@
     "homebridge": ">=0.2.0"
   },
   "author": {
-    "name": "Luca Critelli"
+    "name": "Bouke Goedhart"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/lucacri/homebridge-http-simple-switch.git"
+    "url": "git://github.com/goedh452/homebridge-http-sprinkler.git"
   },
   "dependencies": {
     "sync-request": "^2.1.0"
