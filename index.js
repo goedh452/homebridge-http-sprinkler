@@ -35,11 +35,11 @@ function HttpSprinkler(log, config) {
 //        AccessoryInformation: new Service.AccessoryInformation(),
 //        Switch: new Service.Switch(this.name)
 //    };
-
-    this.services.AccessoryInformation
-        .setCharacteristic(Characteristic.Manufacturer, "sprinkler");
-    this.services.AccessoryInformation
-        .setCharacteristic(Characteristic.Model, "sprinkler");
+//
+//    this.services.AccessoryInformation
+//        .setCharacteristic(Characteristic.Manufacturer, "sprinkler");
+//    this.services.AccessoryInformation
+//        .setCharacteristic(Characteristic.Model, "sprinkler");
 
     switch (this.checkStatus) {
         case "yes":
@@ -185,6 +185,14 @@ HttpSprinkler.prototype.setPowerState = function (powerOn, callback) {
 
 
 HttpSprinkler.prototype.getServices = function () {
+	
+	var informationService = new Service.AccessoryInformation();
+
+        informationService
+                .setCharacteristic(Characteristic.Manufacturer, "Sprinkler Manufacturer")
+                .setCharacteristic(Characteristic.Model, "Sprinkler Model")
+                .setCharacteristic(Characteristic.SerialNumber, "Sprinkler Serial Number");
+	
 	var valveService = new Service.Valve();
 	    
 	valveService.isPrimaryService = true;
