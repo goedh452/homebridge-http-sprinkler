@@ -62,20 +62,39 @@ HttpSprinkler.prototype = {
     },
 
     getServices: function () {
-        var informationService = new Service.AccessoryInformation();
-
-        informationService
-                .setCharacteristic(Characteristic.Manufacturer, "Sprinkler manufacturer")
-                .setCharacteristic(Characteristic.Model, "Sprinkler model")
-                .setCharacteristic(Characteristic.SerialNumber, "Sprinkler Serial Number");
-
-        switchService = new Service.Switch(this.name);
-        switchService
-                .getCharacteristic(Characteristic.On)
-                .on('get', this.getPowerState.bind(this))
-                .on('set', this.setPowerState.bind(this));
-
-    
-        return [switchService];
+	var valveService = new Service.Valve();
+	    
+	valveService.isPrimaryService = true;
+	valveService.displayName = "Service.Valve";
+	valveService.timer = null;
+			
+	valveService.getCharacteristic(Characteristic.Active)
+		.on('set', this.setPowerState.bind(this))
+		.setConfigValues(that.config)
+		.updateUsingHSReference(that.config.ref);
+					
+	valveService.getCharacteristic(Characteristic.InUse)
+		.setConfigValues(that.config)
+		.updateUsingHSReference(that.config.ref);
+					
+	valveService.getCharacteristic(Characteristic.ValveType)
+		.updateValue(that.config.valveType)
+	    
+	    
+//        var informationService = new Service.AccessoryInformation();
+//
+//        informationService
+//                .setCharacteristic(Characteristic.Manufacturer, "Sprinkler manufacturer")
+//                .setCharacteristic(Characteristic.Model, "Sprinkler model")
+//                .setCharacteristic(Characteristic.SerialNumber, "Sprinkler Serial Number");
+//
+//        switchService = new Service.Switch(this.name);
+//        switchService
+//                .getCharacteristic(Characteristic.On)
+//                .on('get', this.getPowerState.bind(this))
+//                .on('set', this.setPowerState.bind(this));
+//
+//    
+        return [valveService];
     }
 };
