@@ -31,32 +31,44 @@ function HttpSprinkler(log, config) {
 
     var that = this;
 
-//    this.services = {
-//        AccessoryInformation: new Service.AccessoryInformation(),
-//        Switch: new Service.Switch(this.name)
-//    };
-//
-//    this.services.AccessoryInformation
-//        .setCharacteristic(Characteristic.Manufacturer, "sprinkler");
-//    this.services.AccessoryInformation
-//        .setCharacteristic(Characteristic.Model, "sprinkler");
+    this.services = {
+        AccessoryInformation: new Service.AccessoryInformation(),
+        valve: new Service.Valve(this.name)
+    };
 
-    switch (this.checkStatus) {
+    this.services.AccessoryInformation
+        .setCharacteristic(Characteristic.Manufacturer, "Sprinkler Manufacturer");
+    this.services.AccessoryInformation
+        .setCharacteristic(Characteristic.Model, "Sprinkler Model");
+     this.services.AccessoryInformation
+	.setCharacteristic(Characteristic.SerialNumber, "Sprinkler Serial Number");
+	
+	valve.isPrimaryService = true;
+	valve.displayName = "Service.Valve";
+	valve.timer = null;
+	valve.getCharacteristic(Characteristic.ValveType)
+		.updateValue(1)
+	
+	
+    valve (this.checkStatus) {
         case "yes":
-            this.services.Switch
+            this.services.valve
+		.getCharacteristic(Characteristic.Active)
+	        .getCharacteristic(Characteristic.InUse)
+		    
                 .getCharacteristic(Characteristic.On)
                 .on('get', this.getStatusState.bind(this))
                 .on('set', this.setPowerState.bind(this));
             break;
         case "polling":
-            this.services.Switch
-                .getCharacteristic(Characteristic.On)
+            this.services.valve
+                .getCharacteristic(Characteristic.Active)
                 .on('get', function(callback) {callback(null, that.state)})
                 .on('set', this.setPowerState.bind(this));
             break;
         default	:
-            this.services.Switch
-                .getCharacteristic(Characteristic.On)
+            this.services.valve
+                .getCharacteristic(Characteristic.Active)
                 .on('set', this.setPowerState.bind(this));
             break;
     }
@@ -185,27 +197,5 @@ HttpSprinkler.prototype.setPowerState = function (powerOn, callback) {
 
 
 HttpSprinkler.prototype.getServices = function () {
-	
-	var informationService = new Service.AccessoryInformation();
-
-        informationService
-                .setCharacteristic(Characteristic.Manufacturer, "Sprinkler Manufacturer")
-                .setCharacteristic(Characteristic.Model, "Sprinkler Model")
-                .setCharacteristic(Characteristic.SerialNumber, "Sprinkler Serial Number");
-	
-	var valveService = new Service.Valve();
-	    
-	valveService.isPrimaryService = true;
-	valveService.displayName = "Service.Valve";
-	valveService.timer = null;
-			
-	valveService.getCharacteristic(Characteristic.Active)
-		.on('set', this.setPowerState.bind(this))
-					
-	valveService.getCharacteristic(Characteristic.InUse)
-					
-	valveService.getCharacteristic(Characteristic.ValveType)
-		.updateValue(1)
-	       
-        return [valveService];
+	return [this.services.AccessoryInformation, this.services.Valve];
 };
