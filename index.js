@@ -93,9 +93,9 @@ function HttpSprinkler(log, config) {
             }
             that.log("status received from: " + that.statusUrl, "state is currently: ", that.state.toString());
 
-            that.services.Valve
-                .getCharacteristic(Characteristic.Active)
-                .setValue(that.state);
+//            that.services.Valve
+//                .getCharacteristic(Characteristic.Active)
+//                .setValue(that.state);
         });
     }
 }
