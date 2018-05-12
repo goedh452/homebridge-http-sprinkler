@@ -78,7 +78,7 @@ HttpSprinkler.prototype = {
 //		.updateUsingHSReference(that.config.ref);
 					
 	valveService.getCharacteristic(Characteristic.ValveType)
-		.updateValue(this.config.valveType)
+//		.updateValue(this.config.valveType)
 	    
 	    
 //        var informationService = new Service.AccessoryInformation();
