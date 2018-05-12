@@ -40,9 +40,13 @@ function HttpSprinkler(log, config) {
         .setCharacteristic(Characteristic.Manufacturer, "Sprinkler Manufacturer");
     this.services.AccessoryInformation
         .setCharacteristic(Characteristic.Model, "Sprinkler Model");
-//    this.services.AccessoryInformation
-//	.setCharacteristic(Characteristic.SerialNumber, "Sprinkler Serial Number");
+    this.services.AccessoryInformation
+	.setCharacteristic(Characteristic.SerialNumber, "Sprinkler Serial Number");
 
+     this.services.Valve
+   	.isPrimaryService = true
+	.timer = null;
+	
     switch (this.checkStatus) {
         case "yes":
             this.services.Valve
