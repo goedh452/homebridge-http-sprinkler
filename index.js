@@ -96,7 +96,7 @@ function HttpSprinkler(log, config) {
 }
 
 
-HttpSwitchAccessory.prototype.httpRequest = function (url, body, method, callback) {
+HttpSprinkler.prototype.httpRequest = function (url, body, method, callback) {
 
     var callbackMethod = callback;
 
@@ -117,7 +117,7 @@ HttpSwitchAccessory.prototype.httpRequest = function (url, body, method, callbac
 };
 
 
-HttpSwitchAccessory.prototype.getStatusState = function (callback) {
+HttpSprinkler.prototype.getStatusState = function (callback) {
 
     if (!this.statusUrl) {
         this.log.warn("Ignoring request: No status url defined.");
@@ -150,7 +150,7 @@ HttpSwitchAccessory.prototype.getStatusState = function (callback) {
 };
 
 
-HttpSwitchAccessory.prototype.setPowerState = function (powerOn, callback) {
+HttpSprinkler.prototype.setPowerState = function (powerOn, callback) {
 
     var url;
     var body;
@@ -184,7 +184,7 @@ HttpSwitchAccessory.prototype.setPowerState = function (powerOn, callback) {
 };
 
 
-HttpSwitchAccessory.prototype.getServices = function () {
+HttpSprinkler.prototype.getServices = function () {
 	var valveService = new Service.Valve();
 	    
 	valveService.isPrimaryService = true;
