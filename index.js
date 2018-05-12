@@ -74,7 +74,7 @@ HttpSprinkler.prototype = {
 //		.updateUsingHSReference(that.config.ref);
 					
 	valveService.getCharacteristic(Characteristic.InUse)
-		.setConfigValues(that.config)
+//		.setConfigValues(that.config)
 //		.updateUsingHSReference(that.config.ref);
 					
 	valveService.getCharacteristic(Characteristic.ValveType)
