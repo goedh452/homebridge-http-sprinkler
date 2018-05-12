@@ -21,7 +21,7 @@ function HttpSprinkler(log, config) {
     this.name = config["name"];
 }
 
-SimpleHttpSwitch.prototype = {
+HttpSprinkler.prototype = {
 
     httpRequest: function (url, body, method, username, password, sendimmediately, callback) {
         request({
