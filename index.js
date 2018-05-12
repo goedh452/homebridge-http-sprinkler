@@ -46,10 +46,10 @@ HttpSprinkler.prototype = {
 	var url;
 	    
 	if (powerOn) {
-        	url = this.onUrl;
+        	url = this.on_url;
         	this.log("Setting power state to on");
         } else {
-        	url = this.offUrl;
+        	url = this.off_url;
         	this.log("Setting power state to off");
         }
 
