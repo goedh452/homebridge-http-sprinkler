@@ -42,6 +42,8 @@ function HttpSprinkler(log, config) {
         .setCharacteristic(Characteristic.Model, "Sprinkler Model");
     this.services.AccessoryInformation
 	.setCharacteristic(Characteristic.SerialNumber, "Sprinkler Serial Number");
+	
+    this.services.Valve.getCharacteristic(Characteristic.ValveType).updateValue(1);
 
     switch (this.checkStatus) {
         case "yes":
@@ -49,9 +51,8 @@ function HttpSprinkler(log, config) {
 		.getCharacteristic(Characteristic.Active)
                 .on('get', this.getStatusState.bind(this))
                 .on('set', this.setPowerState.bind(this))
-		.getCharacteristic(Characteristic.InUse)
-		.getCharacteristic(Characteristic.ValveType).updateValue(1);
-            break;
+		.getCharacteristic(Characteristic.InUse);
+	     break;
         case "polling":
             this.services.Valve
                 .getCharacteristic(Characteristic.Active)
