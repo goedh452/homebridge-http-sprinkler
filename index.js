@@ -10,7 +10,7 @@ module.exports = function (homebridge) {
 }
 
 
-function SimpleHttpSwitch(log, config) {
+function HttpSprinkler(log, config) {
     this.log = log;
 
     // url info
@@ -65,9 +65,9 @@ SimpleHttpSwitch.prototype = {
         var informationService = new Service.AccessoryInformation();
 
         informationService
-                .setCharacteristic(Characteristic.Manufacturer, "Luca Manufacturer")
-                .setCharacteristic(Characteristic.Model, "Luca Model")
-                .setCharacteristic(Characteristic.SerialNumber, "Luca Serial Number");
+                .setCharacteristic(Characteristic.Manufacturer, "Sprinkler manufacturer")
+                .setCharacteristic(Characteristic.Model, "Sprinkler model")
+                .setCharacteristic(Characteristic.SerialNumber, "Sprinkler Serial Number");
 
         switchService = new Service.Switch(this.name);
         switchService
