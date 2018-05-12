@@ -9,7 +9,6 @@ module.exports = function(homebridge) {
 
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
-
     homebridge.registerAccessory("homebridge-http-sprinkler", "http-sprinkler", HttpSprinkler);
 };
 
@@ -32,15 +31,15 @@ function HttpSprinkler(log, config) {
 
     var that = this;
 
-    this.services = {
-        AccessoryInformation: new Service.AccessoryInformation(),
-        Switch: new Service.Switch(this.name)
-    };
+//    this.services = {
+//        AccessoryInformation: new Service.AccessoryInformation(),
+//        Switch: new Service.Switch(this.name)
+//    };
 
     this.services.AccessoryInformation
-        .setCharacteristic(Characteristic.Manufacturer, "vectronic");
-    this.services.AccessoryInformation
-        .setCharacteristic(Characteristic.Model, "HTTP Switch");
+        .setCharacteristic(Characteristic.Manufacturer, "sprinkler");
+//    this.services.AccessoryInformation
+        .setCharacteristic(Characteristic.Model, "sprinkler");
 
     switch (this.checkStatus) {
         case "yes":
@@ -186,5 +185,20 @@ HttpSwitchAccessory.prototype.setPowerState = function (powerOn, callback) {
 
 
 HttpSwitchAccessory.prototype.getServices = function () {
-    return [this.services.AccessoryInformation, this.services.Switch];
+	var valveService = new Service.Valve();
+	    
+	valveService.isPrimaryService = true;
+	valveService.displayName = "Service.Valve";
+	valveService.timer = null;
+			
+	valveService.getCharacteristic(Characteristic.Active)
+		.on('set', this.setPowerState.bind(this))
+					
+	valveService.getCharacteristic(Characteristic.InUse)
+					
+	valveService.getCharacteristic(Characteristic.ValveType)
+		.updateValue(1)
+	       
+        return [valveService];
+    }
 };
