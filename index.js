@@ -33,21 +33,20 @@ function HttpSprinkler(log, config) {
 
     this.services = {
         AccessoryInformation: new Service.AccessoryInformation(),
-        valve: new Service.Valve(this.name)
+        Valve: new Service.Valve(this.name)
     };
 
     this.services.AccessoryInformation
         .setCharacteristic(Characteristic.Manufacturer, "Sprinkler Manufacturer");
     this.services.AccessoryInformation
         .setCharacteristic(Characteristic.Model, "Sprinkler Model");
-     this.services.AccessoryInformation
+    this.services.AccessoryInformation
 	.setCharacteristic(Characteristic.SerialNumber, "Sprinkler Serial Number");
-	
 	
     valve (this.checkStatus) {
 	    
         case "yes":
-            this.services.valve
+            this.services.Valve
 		.getCharacteristic(Characteristic.Active)
 	        .getCharacteristic(Characteristic.InUse)
 		    
@@ -56,13 +55,13 @@ function HttpSprinkler(log, config) {
                 .on('set', this.setPowerState.bind(this));
             break;
         case "polling":
-            this.services.valve
+            this.services.Valve
                 .getCharacteristic(Characteristic.Active)
                 .on('get', function(callback) {callback(null, that.state)})
                 .on('set', this.setPowerState.bind(this));
             break;
         default	:
-            this.services.valve
+            this.services.Valve
                 .getCharacteristic(Characteristic.Active)
                 .on('set', this.setPowerState.bind(this));
             break;
@@ -192,5 +191,5 @@ HttpSprinkler.prototype.setPowerState = function (powerOn, callback) {
 
 
 HttpSprinkler.prototype.getServices = function () {
-	return [this.services.AccessoryInformation, this.services.Valve];
+	return [this.services.AccessoryInformation, this.services.valve];
 };
