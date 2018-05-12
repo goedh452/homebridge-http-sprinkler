@@ -11,15 +11,16 @@ module.exports = function (homebridge) {
 
 
 function HttpSprinkler(log, config) {
-    this.log = log;
+    	this.log = log;
 
-    // url info
-    this.on_url = config["on_url"];
-    this.off_url = config["off_url"];
-    this.http_method = config["http_method"];
-    this.sendimmediately = config["sendimmediately"];
-    this.default_state_off = config["default_state_off"];
-    this.name = config["name"];
+    	// url info
+	this.on_url 		= config["on_url"];
+    	this.off_url 		= config["off_url"];
+    	this.status_url 	= config["status_url]
+    	this.http_method 	= config["http_method"];
+    	this.sendimmediately 	= config["sendimmediately"];
+    	this.default_state_off 	= config["default_state_off"];
+    	this.name 		= config["name"];
 }
 
 HttpSprinkler.prototype = {
@@ -42,8 +43,17 @@ HttpSprinkler.prototype = {
 
     setPowerState: function(powerOn, callback) {
         var body;
+	var url;
+	    
+	if (powerOn) {
+        	url = this.onUrl;
+        	this.log("Setting power state to on");
+        } else {
+        	url = this.offUrl;
+        	this.log("Setting power state to off");
+        }
 
-		var res = request(this.http_method, this.on_url, {});
+		var res = request(this.http_method, this.url, {});
 		if(res.statusCode > 400){
 			this.log('HTTP power function failed');
 			callback(error);
@@ -71,31 +81,12 @@ HttpSprinkler.prototype = {
 			
 	valveService.getCharacteristic(Characteristic.Active)
 		.on('set', this.setPowerState.bind(this))
-//		.setConfigValues(that.config)
-//		.updateUsingHSReference(that.config.ref);
 					
 	valveService.getCharacteristic(Characteristic.InUse)
-//		.setConfigValues(that.config)
-//		.updateUsingHSReference(that.config.ref);
 					
 	valveService.getCharacteristic(Characteristic.ValveType)
 		.updateValue(1)
-	    
-	    
-//        var informationService = new Service.AccessoryInformation();
-//
-//        informationService
-//                .setCharacteristic(Characteristic.Manufacturer, "Sprinkler manufacturer")
-//                .setCharacteristic(Characteristic.Model, "Sprinkler model")
-//                .setCharacteristic(Characteristic.SerialNumber, "Sprinkler Serial Number");
-//
-//        switchService = new Service.Switch(this.name);
-//        switchService
-//                .getCharacteristic(Characteristic.On)
-//                .on('get', this.getPowerState.bind(this))
-//                .on('set', this.setPowerState.bind(this));
-//
-//    
+	       
         return [valveService];
     }
 };
