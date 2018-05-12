@@ -17,6 +17,7 @@ function HttpSprinkler(log, config) {
 	this.on_url 		= config["on_url"];
     	this.off_url 		= config["off_url"];
     	this.status_url 	= config["status_url"];
+	this.status_regex 	= config["status_regex"];
     	this.http_method 	= config["http_method"];
     	this.sendimmediately 	= config["sendimmediately"];
     	this.default_state_off 	= config["default_state_off"];
@@ -38,7 +39,33 @@ HttpSprinkler.prototype = {
     },
 
     getPowerState: function (callback) {
-        callback(null, !this.default_state_off);
+        if (!this.status_url) {
+        this.log.warn("Ignoring request: No status url defined.");
+        callback(new Error("No status url defined."));
+        return;
+    }
+
+    var url = this.status_url;
+    var regex = this.statusRegex;
+
+    this.httpRequest(url, "", "GET", function (error, response, responseBody) {
+        if (error) {
+            this.log('HTTP get status function failed: %s', error.message);
+            callback(error);
+        }
+        else {
+            var powerOn = false;
+            if (Boolean(regex)) {
+                var re = new RegExp(regex);
+                powerOn = re.test(responseBody);
+            }
+            else {
+                var binaryState = parseInt(responseBody);
+                powerOn = binaryState > 0;
+            }
+            this.log("status received from: " + url, "state is currently: ", powerOn.toString());
+            callback(null, powerOn);
+        }
     },
 
     setPowerState: function(powerOn, callback) {
