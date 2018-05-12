@@ -88,8 +88,8 @@ function HttpSprinkler(log, config) {
 //                that.state = re.test(data);
 		    
 	    var json = JSON.parse(data);
-	    that.log("Waarde status: " + json.result.Status);
-            that.state = json.result.Status;
+	    that.log("Waarde status: " + json.result[0].Status);
+            that.state = json.result[0].Status;
 		    
             }
             else {
