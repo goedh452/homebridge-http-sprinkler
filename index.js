@@ -9,7 +9,7 @@ module.exports = function(homebridge) {
 
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
-    homebridge.registerAccessory("homebridge-http-sprinkler", "http-sprinkler", HttpSprinkler);
+    homebridge.registerAccessory("homebridge-http-sprinkler", "HttpSprinkler", HttpSprinkler);
 };
 
 
