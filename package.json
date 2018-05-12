@@ -1,23 +1,24 @@
 {
   "name": "homebridge-http-sprinkler",
-  "version": "0.0.2",
-  "description": "http sprinkler plugin for homebridge",
+  "version": "1.0.0",
+  "description": "Homebridge sprinkler control through HTTP",
   "license": "ISC",
   "keywords": [
-    "homebridge-plugin"
+  "homebridge-plugin"
   ],
   "engines": {
-    "node": ">=0.12.0",
-    "homebridge": ">=0.2.0"
+    "node": ">=4.3.2",
+    "homebridge": ">=0.4.0"
   },
   "author": {
-    "name": "Bouke Goedhart"
+    "name": "Goedh452"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/goedh452/homebridge-http-sprinkler.git"
+    "url": "git://github.com/vectronic/homebridge-http-switch"
   },
   "dependencies": {
-    "sync-request": "^2.1.0"
+    "request": "^2.83.0",
+    "polling-to-event": ">=2.1.0"
   }
 }
