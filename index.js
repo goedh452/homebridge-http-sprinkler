@@ -42,9 +42,8 @@ function HttpSprinkler(log, config) {
         .setCharacteristic(Characteristic.Model, "Sprinkler Model");
     this.services.AccessoryInformation
 	.setCharacteristic(Characteristic.SerialNumber, "Sprinkler Serial Number");
-	
+
     valve (this.checkStatus) {
-	    
         case "yes":
             this.services.Valve
 		.getCharacteristic(Characteristic.Active)
@@ -94,8 +93,8 @@ function HttpSprinkler(log, config) {
             }
             that.log("status received from: " + that.statusUrl, "state is currently: ", that.state.toString());
 
-            that.services.Switch
-                .getCharacteristic(Characteristic.On)
+            that.services.Valve
+                .getCharacteristic(Characteristic.Active)
                 .setValue(that.state);
         });
     }
