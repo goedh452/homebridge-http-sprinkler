@@ -88,7 +88,6 @@ function HttpSprinkler(log, config) {
 //                that.state = re.test(data);
 		    
 	    var json = JSON.parse(data);
-	    that.log("Waarde status: " + json.result[0].Status);
             that.state = json.result[0].Status;
 		    
             }
@@ -146,8 +145,13 @@ HttpSprinkler.prototype.getStatusState = function (callback) {
         else {
             var powerOn = false;
             if (Boolean(regex)) {
-                var re = new RegExp(regex);
-                powerOn = re.test(responseBody);
+//                var re = new RegExp(regex);
+//                powerOn = re.test(responseBody);
+		   
+		  var json = JSON.parse(data);
+		  var status = json.result[0].Status;
+                  if status != "Off" { poweron = true; }
+		  else { poweron = false; }
             }
             else {
                 var binaryState = parseInt(responseBody);
