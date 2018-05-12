@@ -38,7 +38,7 @@ function HttpSprinkler(log, config) {
 
     this.services.AccessoryInformation
         .setCharacteristic(Characteristic.Manufacturer, "sprinkler");
-//    this.services.AccessoryInformation
+    this.services.AccessoryInformation
         .setCharacteristic(Characteristic.Model, "sprinkler");
 
     switch (this.checkStatus) {
