@@ -16,7 +16,7 @@ function HttpSprinkler(log, config) {
     	// url info
 	this.on_url 		= config["on_url"];
     	this.off_url 		= config["off_url"];
-    	this.status_url 	= config["status_url]
+    	this.status_url 	= config["status_url];
     	this.http_method 	= config["http_method"];
     	this.sendimmediately 	= config["sendimmediately"];
     	this.default_state_off 	= config["default_state_off"];
