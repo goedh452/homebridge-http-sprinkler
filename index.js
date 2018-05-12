@@ -200,5 +200,4 @@ HttpSwitchAccessory.prototype.getServices = function () {
 		.updateValue(1)
 	       
         return [valveService];
-    }
 };
