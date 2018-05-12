@@ -14,7 +14,8 @@ function HttpSprinkler(log, config) {
     this.log = log;
 
     // url info
-    this.url = config["url"];
+    this.on_url = config["on_url"];
+    this.off_url = config["off_url"];
     this.http_method = config["http_method"];
     this.sendimmediately = config["sendimmediately"];
     this.default_state_off = config["default_state_off"];
@@ -42,7 +43,7 @@ HttpSprinkler.prototype = {
     setPowerState: function(powerOn, callback) {
         var body;
 
-		var res = request(this.http_method, this.url, {});
+		var res = request(this.http_method, this.on_url, {});
 		if(res.statusCode > 400){
 			this.log('HTTP power function failed');
 			callback(error);
