@@ -150,7 +150,7 @@ HttpSprinkler.prototype.getStatusState = function (callback) {
 		   
 		  var json = JSON.parse(data);
 		  var status = json.result[0].Status;
-                  if status != "Off" { poweron = true; }
+                  if (status != "Off") { poweron = true; }
 		  else { poweron = false; }
             }
             else {
