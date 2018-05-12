@@ -43,16 +43,14 @@ function HttpSprinkler(log, config) {
     this.services.AccessoryInformation
 	.setCharacteristic(Characteristic.SerialNumber, "Sprinkler Serial Number");
 
-     Valve.isPrimaryService = true;
-     Valve.timer = null;
-	
     switch (this.checkStatus) {
         case "yes":
             this.services.Valve
 		.getCharacteristic(Characteristic.Active)
                 .on('get', this.getStatusState.bind(this))
                 .on('set', this.setPowerState.bind(this))
-		.getCharacteristic(Characteristic.InUse);
+		.getCharacteristic(Characteristic.InUse)
+		.getCharacteristic(Characteristic.ValveType).updateValue(1);
             break;
         case "polling":
             this.services.Valve
