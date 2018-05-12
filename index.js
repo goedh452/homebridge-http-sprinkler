@@ -48,8 +48,8 @@ function HttpSprinkler(log, config) {
             this.services.Valve
 		.getCharacteristic(Characteristic.Active)
                 .on('get', this.getStatusState.bind(this))
-                .on('set', this.setPowerState.bind(this));
-		.getCharacteristic(Characteristic.InUse)
+                .on('set', this.setPowerState.bind(this))
+		.getCharacteristic(Characteristic.InUse);
             break;
         case "polling":
             this.services.Valve
