@@ -47,11 +47,9 @@ function HttpSprinkler(log, config) {
         case "yes":
             this.services.Valve
 		.getCharacteristic(Characteristic.Active)
-	        .getCharacteristic(Characteristic.InUse)
-		    
-                .getCharacteristic(Characteristic.On)
                 .on('get', this.getStatusState.bind(this))
                 .on('set', this.setPowerState.bind(this));
+		.getCharacteristic(Characteristic.InUse)
             break;
         case "polling":
             this.services.Valve
@@ -190,5 +188,5 @@ HttpSprinkler.prototype.setPowerState = function (powerOn, callback) {
 
 
 HttpSprinkler.prototype.getServices = function () {
-	return [this.services.AccessoryInformation, this.services.valve];
+	return [this.services.AccessoryInformation, this.services.Valve];
 };
