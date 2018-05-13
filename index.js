@@ -64,9 +64,6 @@ HttpSprinkler.prototype = {
 
 		var url = this.statusUrl;
 				
-		this.log('JSONPATH: ' + this.jsonPath);
-		this.log('JSONRESULT: ' + jsonResult);
-
 		this.httpRequest(url, "", "GET", function (error, response, responseBody) {
 			if (error) {
 				this.log('HTTP get status function failed: %s', error.message);
@@ -78,6 +75,7 @@ HttpSprinkler.prototype = {
 				var jsonResult = json.this.jsonPath;				
 				var status = jsonResult;
 	
+				this.log('JSONRESULT: ' + jsonResult);
 				this.log("STATUS: " + status);
 				
 				if (status != this.offValue) {
