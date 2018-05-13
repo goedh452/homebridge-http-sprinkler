@@ -76,10 +76,10 @@ HttpSprinkler.prototype = {
 				this.log('STATUS: ' + status);
 				
 				if (status != "Off") {
-					poweron = true;
+					powerOn = true;
 				}
 				else {
-					poweron = false;
+					powerOn = false;
 				}
 				
 				this.log("status received from: " + url, "state is currently: ", powerOn.toString());
