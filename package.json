@@ -19,6 +19,7 @@
   },
   "dependencies": {
     "polling-to-event": ">=2.1.0",
-    "sync-request": "^2.1.0"
+    "sync-request": "^2.1.0",
+    "request": "^2.67.0"
   }
 }
