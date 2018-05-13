@@ -18,7 +18,6 @@
     "url": "git://github.com/goedh452/homebridge-http-sprinkler"
   },
   "dependencies": {
-    //"request": "^2.83.0",
     "polling-to-event": ">=2.1.0",
     "sync-request": "^2.1.0"
   }
