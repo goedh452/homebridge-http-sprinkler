@@ -73,8 +73,6 @@ HttpSprinkler.prototype = {
 				var powerOn = false;
 				var json = JSON.parse(responseBody);
 				var status = eval("json." + this.jsonPath);
-	
-				this.log("STATUS: " + status);
 				
 				if (status != this.offValue) {
 					powerOn = true;
@@ -137,9 +135,14 @@ HttpSprinkler.prototype = {
 			.setCharacteristic(Characteristic.SerialNumber, "Sprinkler Serial Number");
 
 		valveService = new Service.Valve(this.name);
+		
 		valveService.getCharacteristic(Characteristic.ValveType).updateValue(1)
+		
 		valveService.getCharacteristic(Characteristic.Active)
 			.on('set', this.setPowerState.bind(this))
+			.on('get', this.getPowerState.bind(this))
+		
+		valveService.getCharacteristic(Characteristic.InUse)
 			.on('get', this.getPowerState.bind(this))
 
 		return [valveService];
