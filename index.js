@@ -45,8 +45,38 @@ HttpSprinkler.prototype = {
 
 	
 	getPowerState: function (callback) {
-		var default_state_off = false
-		callback(null, !default_state_off);
+		//var default_state_off = false
+		//callback(null, !default_state_off);
+		
+		if (!this.statusUrl) {
+			this.log.warn("Ignoring request: No status url defined.");
+			callback(new Error("No status url defined."));
+			return;
+		}
+
+		var url = this.statusUrl;
+   
+		this.httpRequest(url, "", "GET", function (error, response, responseBody) {
+			if (error) {
+				this.log('HTTP get status function failed: %s', error.message);
+				callback(error);
+			}
+			else {
+				var powerOn = false;
+				var json = JSON.parse(responseBody);
+				var status = json.result[0].Status;
+				
+				if (status != "Off") { 
+					poweron = true;
+				}
+				else {
+					poweron = false;
+				}
+			}
+			
+			this.log("status received from: " + url, "state is currently: ", powerOn.toString());
+			callback(null, powerOn);
+		}.bind(this));
 	},
 	
 	
