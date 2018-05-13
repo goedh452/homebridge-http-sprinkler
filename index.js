@@ -18,9 +18,9 @@ function HttpSprinkler(log, config) {
 	this.checkStatus 	    = config["checkStatus"]	|| "no";
 	this.pollingMillis          = config["pollingMillis"]   || 10000;
 	this.onUrl                  = config["onUrl"]
-	this.onBody                 = config["onBody"];
+	//this.onBody                 = config["onBody"];
 	this.offUrl                 = config["offUrl"];
-	this.offBody                = config["offBody"];
+	//this.offBody                = config["offBody"];
 	this.statusUrl              = config["statusUrl"];
 	this.statusRegex            = config["statusRegex"]	|| "";
 	this.httpMethod             = config["httpMethod"]   	|| "GET";
@@ -67,17 +67,17 @@ HttpSprinkler.prototype = {
 
 		if (powerOn) {
 			url = this.onUrl;
-			body = this.onBody;
+			//body = this.onBody;
 			inuse = 1;
 			this.log("Setting power state to on");
 		} else {
 			url = this.offUrl;
-			body = this.offBody;
+			//body = this.offBody;
 			inuse = 0;
 			this.log("Setting power state to off");
 		}
 
-		var res = request(this.http_method, this.url, {});
+		var res = request(this.url, "", this.http_method, "", "", "", callback);
 		if(res.statusCode > 400) {
 			this.log('HTTP power function failed');
 			callback(error);
