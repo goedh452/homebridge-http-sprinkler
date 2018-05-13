@@ -16,13 +16,13 @@ function HttpSprinkler(log, config) {
 	
 	// Get config info
 	this.name		= config["name"]          	|| "HTTP Switch";
-	this.onUrl              = config["onUrl"]
+	this.onUrl              = config["onUrl"];
 	this.offUrl             = config["offUrl"];
 	this.checkStatus 	= config["checkStatus"]		|| "no";
 	this.pollingSec	        = config["pollingMillis"]   	|| 1;
 	this.statusUrl          = config["statusUrl"];
 	this.jsonPath		= config["jsonPath"];
-	this.offValue		= config["offValue"];		|| "Off"
+	this.offValue		= config["offValue"]		|| "Off";
 	this.httpMethod         = config["httpMethod"]   	|| "GET";
 
 	this.state = false;
