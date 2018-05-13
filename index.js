@@ -86,7 +86,7 @@ HttpSprinkler.prototype = {
 			this.log("Setting power state to off");
 		}
 
-		var res = request(this.http_method, url, {});
+		var res = request(url, body, this.http_method, {});
 		if(res.statusCode > 400) {
 			this.log('HTTP power function failed');
 			callback(error);
