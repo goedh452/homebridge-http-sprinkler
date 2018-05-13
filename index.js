@@ -34,6 +34,27 @@ function HttpSprinkler(log, config) {
 
 HttpSprinkler.prototype = {
 	
+	httpRequest: function (url, body, method, callback) {
+		
+		var callbackMethod = callback;
+
+		request({
+			url: url,
+			body: body,
+			method: method,
+			rejectUnauthorized: false
+        	},
+        
+		function (error, response, responseBody) {
+			if (callbackMethod) {
+				callbackMethod(error, response, responseBody)
+			}
+			else {
+				this.log.warn("callbackMethod not defined!");
+			}
+		})
+	},
+	
 	
 	getPowerState: function (callback) {
 		var default_state_off = false
