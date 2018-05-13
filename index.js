@@ -29,7 +29,6 @@ function HttpSprinkler(log, config) {
 	var that = this;
 	
 	//realtime polling info
-
 	this.state = false;
 	this.currentlevel = 0;
 	this.enableSet = true;
@@ -103,7 +102,6 @@ function HttpSprinkler(log, config) {
 			.setValue(that.state);
 
 		that.enableSet = true;
-	);
 }
 
 
