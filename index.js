@@ -94,7 +94,7 @@ HttpSprinkler.prototype = {
 				this.log('HTTP set power function succeeded!');
 				callback();
 			}
-		}//.bind(this));
+		}.bind(this);
 	},
 	
 	
