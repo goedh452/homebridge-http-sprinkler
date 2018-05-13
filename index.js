@@ -73,6 +73,7 @@ HttpSprinkler.prototype = {
 				var status = json.result[0].Status;
 				
 				this.log(responseBody);
+				this.log('STATUS: ' + status);
 				
 				if (status != "Off") {
 					poweron = true;
