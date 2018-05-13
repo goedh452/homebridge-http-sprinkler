@@ -17,12 +17,9 @@ function HttpSprinkler(log, config) {
 	this.name                   = config["name"]          	|| "HTTP Switch";
 	this.checkStatus 	    = config["checkStatus"]	|| "no";
 	this.pollingMillis          = config["pollingMillis"]   || 10000;
-	this.onUrl                  = config["onUrl"]
-	//this.onBody                 = config["onBody"];
-	this.offUrl                 = config["offUrl"];
-	//this.offBody                = config["offBody"];
 	this.statusUrl              = config["statusUrl"];
-	this.statusRegex            = config["statusRegex"]	|| "";
+	this.onUrl                  = config["onUrl"]
+	this.offUrl                 = config["offUrl"];
 	this.httpMethod             = config["httpMethod"]   	|| "GET";
 
 	this.state = false;
@@ -76,8 +73,6 @@ HttpSprinkler.prototype = {
 			inuse = 0;
 			this.log("Setting power state to off");
 		}
-
-		//this.log('URL: ' + url);
 		
 		var res = request(this.httpMethod, url, {});
 		if(res.statusCode > 400) {
@@ -88,9 +83,6 @@ HttpSprinkler.prototype = {
 			this.log('HTTP power function succeeded!');
 			valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
 			
-			//var info = JSON.parse(res.body);
-			//this.log(res.body);
-			//this.log(info);
 			callback();
 		}
 	},
@@ -108,7 +100,7 @@ HttpSprinkler.prototype = {
 		valveService.getCharacteristic(Characteristic.ValveType).updateValue(1)
 		valveService.getCharacteristic(Characteristic.Active)
 			.on('set', this.setPowerState.bind(this))
-			// .on('get', this.getStatusState.bind(this))
+			.on('get', this.getStatusState.bind(this))
 
 		return [valveService];
 	}
