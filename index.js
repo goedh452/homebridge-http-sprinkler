@@ -55,28 +55,28 @@ HttpSprinkler.prototype = {
 		}
 
 		var url = this.statusUrl;
-   
-		this.httpRequest(url, "", "GET", function (error, response, responseBody) {
-			if (error) {
-				this.log('HTTP get status function failed: %s', error.message);
-				callback(error);
+		
+		var res = request("GET", url, {});
+		
+		if(res.statusCode > 400) {
+			this.log('HTTP get status function failed: %s', error.message);
+			callback(error);
+		}
+		else {
+			var powerOn = false;
+			var json = JSON.parse(responseBody);
+			var status = json.result[0].Status;
+			
+			if (status != "Off") { 
+				poweron = true;
 			}
 			else {
-				var powerOn = false;
-				var json = JSON.parse(responseBody);
-				var status = json.result[0].Status;
-				
-				if (status != "Off") { 
-					poweron = true;
-				}
-				else {
-					poweron = false;
-				}
+				poweron = false;
 			}
-			
-			this.log("status received from: " + url, "state is currently: ", powerOn.toString());
-			callback(null, powerOn);
-		}.bind(this));
+		}
+		
+		this.log("status received from: " + url, "state is currently: ", powerOn.toString());
+		callback(null, powerOn);
 	},
 	
 	
