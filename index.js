@@ -19,15 +19,91 @@ function HttpSprinkler(log, config) {
 	this.onUrl              = config["onUrl"];
 	this.offUrl             = config["offUrl"];
 	this.checkStatus 	= config["checkStatus"]		|| "no";
-	this.pollingSec	        = config["pollingMillis"]   	|| 1;
+	this.pollingMillis      = config["pollingMillis"]   	|| 3000;
 	this.statusUrl          = config["statusUrl"];
 	this.jsonPath		= config["jsonPath"];
+	this.onValue		= config["onValue"];
 	this.offValue		= config["offValue"];
 	this.httpMethod         = config["httpMethod"]   	|| "GET";
 
-	this.state = false;
-
 	var that = this;
+	
+	//realtime polling info
+
+	this.state = false;
+	this.currentlevel = 0;
+	this.enableSet = true;
+	var that = this;
+
+	// Status Polling
+	if (this.statusUrl && this.checkStatus === "realtime") {
+		var powerurl = this.statusUrl;
+		var statusemitter = pollingtoevent(function (done) {
+			that.httpRequest(powerurl, "", "GET", "", "", "", function (error, response, body) {
+				if (error) {
+					that.log("HTTP get power function failed: %s", error.message);
+					try {
+						done(new Error("Network failure that must not stop homebridge!"));
+					} catch (err) {
+						that.log(err.message);
+					}
+				} else {
+					done(null, body);
+				}
+			})
+		}, { longpolling: true, interval: this.pollingMillis, longpollEventName: "statuspoll" });
+
+		
+	function compareStates(customStatus, stateData) {
+		var objectsEqual = true;
+		for (var param in customStatus) {
+			if (!stateData.hasOwnProperty(param) || customStatus[param] !== stateData[param]) {
+				objectsEqual = false;
+				break;
+			}
+		}
+		return objectsEqual;
+	}
+
+        statusemitter.on("statuspoll", function (responseBody) {
+		var binaryState;
+		
+		if (that.onValue && that.offValue) {	//Check if custom status checks are set
+			var customStatusOn = that.onValue;
+			var customStatusOff = that.offValue;
+			var statusOn, statusOff;
+
+			// Check to see if custom states are a json object and if so compare to see if either one matches the state response
+			if (responseBody.startsWith("{")) {
+				statusOn = compareStates(customStatusOn, JSON.parse(responseBody));
+				statusOff = compareStates(customStatusOff, JSON.parse(responseBody));
+			} else {
+				statusOn = responseBody.includes(customStatusOn);
+				statusOff = responseBody.includes(customStatusOff);
+			}
+			that.log("Status On Status Poll", statusOn);
+			
+			if (statusOn) binaryState = 1;
+			// else binaryState = 0;
+			if (statusOff) binaryState = 0;
+		} else {
+			binaryState = parseInt(responseBody.replace(/\D/g, ""));
+		}
+		
+		that.state = binaryState > 0;
+		that.log(that.service, "received power", that.status_url, "state is currently", binaryState);
+		
+		// switch used to easily add additonal services
+		that.enableSet = false;
+		
+		that.valveService.getCharacteristic(Characteristic.Active)
+			.setValue(that.state);
+		
+		that.valveService.getCharacteristic(Characteristic.InUse)
+			.setValue(that.state);
+
+		that.enableSet = true;
+	});
 }
 
 
@@ -102,12 +178,10 @@ HttpSprinkler.prototype = {
 
 		if (powerOn) {
 			url = this.onUrl;
-			//body = this.onBody;
 			inuse = 1;
 			this.log("Setting power state to on");
 		} else {
 			url = this.offUrl;
-			//body = this.offBody;
 			inuse = 0;
 			this.log("Setting power state to off");
 		}
@@ -138,13 +212,32 @@ HttpSprinkler.prototype = {
 		
 		valveService.getCharacteristic(Characteristic.ValveType).updateValue(1)
 		
-		valveService.getCharacteristic(Characteristic.Active)
-			.on('set', this.setPowerState.bind(this))
-			.on('get', this.getPowerState.bind(this))
+		switch (this.checkStatus) {
+				//Status polling
+			case "yes":
+				this.valveService
+					.getCharacteristic(Characteristic.Active)
+					.on('set', this.setPowerState.bind(this))
+					.on('get', this.getPowerState.bind(this));
 		
-		valveService.getCharacteristic(Characteristic.InUse)
-			.on('get', this.getPowerState.bind(this))
-
+				valveService.getCharacteristic(Characteristic.InUse)
+					.on('get', this.getPowerState.bind(this));
+                        break;
+			case "realtime":
+				this.valveService
+				.getCharacteristic(Characteristic.Active)
+				.on("get", function (callback) {
+					callback(null, that.state)
+				})
+				.on('set', this.setPowerState.bind(this));
+                        break;
+			default:
+				this.switchService
+					.getCharacteristic(Characteristic.Active)
+					.on('set', this.setPowerState.bind(this))
+                        break;
+                }
+		
 		return [valveService];
 	}
 };
