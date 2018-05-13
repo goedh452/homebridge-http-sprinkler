@@ -22,7 +22,7 @@ function HttpSprinkler(log, config) {
 	this.pollingSec	        = config["pollingMillis"]   	|| 1;
 	this.statusUrl          = config["statusUrl"];
 	this.jsonPath		= config["jsonPath"];
-	this.offValue		= config["offValue"]		|| "Off";
+	this.offValue		= config["offValue"];
 	this.httpMethod         = config["httpMethod"]   	|| "GET";
 
 	this.state = false;
@@ -56,14 +56,14 @@ HttpSprinkler.prototype = {
 
 	getPowerState: function (callback) {
 		
-		if (!this.statusUrl) {
-			this.log.warn("Ignoring request: No status url defined.");
+		if (!this.statusUrl || !this.jsonPath || !this.offValue) {
+			this.log.warn("Ignoring request: Missing status properties in config.json.");
 			callback(new Error("No status url defined."));
 			return;
 		}
 
 		var url = this.statusUrl;
-		var jsonResult = this.jsonPath;
+		var jsonResult = json.this.jsonPath;
 		
 		this.log('JSONPATH: ' + this.jsonPath);
 		this.log('JSONRESULT: ' + jsonResult);
@@ -76,7 +76,7 @@ HttpSprinkler.prototype = {
 			else {
 				var powerOn = false;
 				var json = JSON.parse(responseBody);
-				var status = json.jsonResult;
+				var status = jsonResult;
 	
 				this.log("STATUS: " + status);
 				
