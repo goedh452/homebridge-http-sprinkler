@@ -28,6 +28,8 @@ function HttpSprinkler(log, config) {
 	this.state = false;
 
 	var that = this;
+	
+}
 
 
 HttpSprinkler.prototype = {
