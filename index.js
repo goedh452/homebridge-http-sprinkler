@@ -93,7 +93,7 @@ HttpSprinkler.prototype = {
 		}
 		else {
 			this.log('HTTP power function succeeded!');
-			valveService.getCharacteristic(Characteristic.InUse).updatevalue(inuse);
+			//valveService.getCharacteristic(Characteristic.InUse).updatevalue(inuse);
 			
 			var info = JSON.parse(res.body);
 			this.log(res.body);
