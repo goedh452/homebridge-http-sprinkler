@@ -100,7 +100,7 @@ HttpSprinkler.prototype = {
 		valveService.getCharacteristic(Characteristic.ValveType).updateValue(1)
 		valveService.getCharacteristic(Characteristic.Active)
 			.on('set', this.setPowerState.bind(this))
-			.on('get', this.getStatusState.bind(this))
+			.on('get', this.getPowerState.bind(this))
 
 		return [valveService];
 	}
