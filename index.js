@@ -64,29 +64,37 @@ function HttpSprinkler(log, config) {
 		return objectsEqual;
 	}
 
-        statusemitter.on("statuspoll", function (responseBody) {
+        statusemitter.on("statuspoll", function (responseBody)
+	{
 		var binaryState;
 		
-		if (that.onValue && that.offValue) {	//Check if custom status checks are set
+		if (that.onValue && that.offValue)
+		{	//Check if custom status checks are set
 			var customStatusOn = that.onValue;
 			var customStatusOff = that.offValue;
 			var statusOn, statusOff;
 
 			// Check to see if custom states are a json object and if so compare to see if either one matches the state response
-			if (responseBody.startsWith("{")) {
+			if (responseBody.startsWith("{"))
+			{
 				statusOn = compareStates(customStatusOn, JSON.parse(responseBody));
 				statusOff = compareStates(customStatusOff, JSON.parse(responseBody));
-			} else {
+			} 
+			else
+			{
 				statusOn = responseBody.includes(customStatusOn);
 				statusOff = responseBody.includes(customStatusOff);
 			}
 			that.log("Status On Status Poll", statusOn);
 			
 			if (statusOn) binaryState = 1;
+			
 			// else binaryState = 0;
 			if (statusOff) binaryState = 0;
-		} else {
-			binaryState = parseInt(responseBody.replace(/\D/g, ""));
+		} 
+		else
+		{
+			binaryState = 0; //parseInt(responseBody.replace(/\D/g, ""));
 		}
 		
 		that.state = binaryState > 0;
@@ -102,7 +110,7 @@ function HttpSprinkler(log, config) {
 			.setValue(that.state);
 
 		that.enableSet = true;
-	);
+	});
 }
 
 
