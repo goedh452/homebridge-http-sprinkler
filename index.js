@@ -34,6 +34,10 @@ HttpSprinkler.prototype = {
 		
 		var callbackMethod = callback;
 		
+		this.log('URL: ' + url);
+		this.log('BODY: ' + body);
+		this.log('METHOD: ' + method);
+		
 		request({
 			url: url,
 			body: body,
@@ -52,8 +56,6 @@ HttpSprinkler.prototype = {
 		
 
 	getPowerState: function (callback) {
-		//var default_state_off = false
-		//callback(null, !default_state_off);
 		
 		if (!this.statusUrl) {
 			this.log.warn("Ignoring request: No status url defined.");
