@@ -52,6 +52,11 @@ HttpSprinkler.prototype = {
         })
 	},
 	
+	getPowerState: function (callback) {
+		var default_state_off = false
+        callback(null, !default_state_off);
+    },
+	
 	setPowerState: function (powerOn, callback) {
 
     var url;
@@ -104,8 +109,7 @@ HttpSprinkler.prototype = {
                 .getCharacteristic(Characteristic.Active)
                // .on('get', this.getStatusState.bind(this))
                 .on('set', this.setPowerState.bind(this))
-				
-    
+
         return [valveService];
     }
 };
