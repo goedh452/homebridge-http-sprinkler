@@ -111,5 +111,5 @@ HttpSprinkler.prototype = {
                 .on('set', this.setPowerState.bind(this))
 
         return [valveService];
-    }
+    
 };
