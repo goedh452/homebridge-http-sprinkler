@@ -66,7 +66,7 @@ HttpSprinkler.prototype = {
 		var jsonResult = this.jsonPath;
 		
 		this.log('JSONPATH: ' + this.jsonPath);
-		this.log('JSONRESULT: ' + this.jsonResult);
+		this.log('JSONRESULT: ' + jsonResult);
 
 		this.httpRequest(url, "", "GET", function (error, response, responseBody) {
 			if (error) {
