@@ -35,10 +35,6 @@ HttpSprinkler.prototype = {
 		
 		var callbackMethod = callback;
 		
-		this.log('URL: ' + url);
-		this.log('BODY: ' + body);
-		this.log('METHOD: ' + method);
-		
 		request({
 			url: url,
 			body: body,
@@ -75,6 +71,8 @@ HttpSprinkler.prototype = {
 				var powerOn = false;
 				var json = JSON.parse(responseBody);
 				var status = json.result[0].Status;
+				
+				this.log(responseBody);
 				
 				if (status != "Off") {
 					poweron = true;
