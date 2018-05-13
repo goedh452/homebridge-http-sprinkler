@@ -15,13 +15,15 @@ function HttpSprinkler(log, config) {
 	this.log = log;
 	
 	// Get config info
-	this.name                   = config["name"]          	|| "HTTP Switch";
-	this.checkStatus 	    = config["checkStatus"]	|| "no";
-	this.pollingMillis          = config["pollingMillis"]   || 10000;
-	this.statusUrl              = config["statusUrl"];
-	this.onUrl                  = config["onUrl"]
-	this.offUrl                 = config["offUrl"];
-	this.httpMethod             = config["httpMethod"]   	|| "GET";
+	this.name		= config["name"]          	|| "HTTP Switch";
+	this.onUrl              = config["onUrl"]
+	this.offUrl             = config["offUrl"];
+	this.checkStatus 	= config["checkStatus"]		|| "no";
+	this.pollingSec	        = config["pollingMillis"]   	|| 1;
+	this.statusUrl          = config["statusUrl"];
+	this.jsonPath		= config["jsonPath"];
+	this.offValue		= config["offValue"];		|| "Off"
+	this.httpMethod         = config["httpMethod"]   	|| "GET";
 
 	this.state = false;
 
@@ -70,12 +72,11 @@ HttpSprinkler.prototype = {
 			else {
 				var powerOn = false;
 				var json = JSON.parse(responseBody);
-				var status = json.result[0].Status;
+				var status = json.this.jsonPath;
+	
+				this.log("STATUS: " + status);
 				
-				this.log(responseBody);
-				this.log('STATUS: ' + status);
-				
-				if (status != "Off") {
+				if (status != this.offValue) {
 					powerOn = true;
 				}
 				else {
