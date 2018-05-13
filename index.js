@@ -50,7 +50,7 @@ HttpSprinkler.prototype = {
                 this.log.warn("callbackMethod not defined!");
             }
         })
-},
+	},
 	
 	setPowerState: function (powerOn, callback) {
 
@@ -87,9 +87,8 @@ HttpSprinkler.prototype = {
             this.log('HTTP set power function succeeded!');
             callback();
         }
-    }.bind(this));
-},
-
+    	}.bind(this));
+	},
 	
 	getServices: function () {
 		var informationService = new Service.AccessoryInformation();
@@ -109,5 +108,4 @@ HttpSprinkler.prototype = {
     
         return [valveService];
     }
-	
 };
