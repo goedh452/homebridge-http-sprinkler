@@ -1,5 +1,6 @@
 var Service, Characteristic;
-var request = require('sync-request');
+var syncRequest = require('sync-request');
+var request = require("request");
 var pollingtoevent = require('polling-to-event');
 
 
@@ -113,7 +114,7 @@ HttpSprinkler.prototype = {
 			this.log("Setting power state to off");
 		}
 		
-		var res = request(this.httpMethod, url, {});
+		var res = syncRequest(this.httpMethod, url, {});
 		if(res.statusCode > 400) {
 			this.log('HTTP power function failed');
 			callback(error);
