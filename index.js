@@ -63,6 +63,10 @@ HttpSprinkler.prototype = {
 		}
 
 		var url = this.statusUrl;
+		var jsonResult = this.jsonPath;
+		
+		this.log('JSONPATH: ' + this.jsonPath);
+		this.log('JSONRESULT: ' + this.jsonResult);
 
 		this.httpRequest(url, "", "GET", function (error, response, responseBody) {
 			if (error) {
@@ -72,7 +76,7 @@ HttpSprinkler.prototype = {
 			else {
 				var powerOn = false;
 				var json = JSON.parse(responseBody);
-				var status = json.this.jsonPath;
+				var status = json.jsonResult;
 	
 				this.log("STATUS: " + status);
 				
