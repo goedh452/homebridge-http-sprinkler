@@ -84,17 +84,20 @@ HttpSprinkler.prototype = {
 			this.log("Setting power state to off");
 		}
 
-		this.httpRequest(url, body, this.httpMethod, function (error, response, responseBody) {
-			if (error) {
-				this.log('HTTP set power function failed: %s', error.message);
-				callback(error);
-			}
-			else {
-				valveService.getCharacteristic(Characteristic.InUse).updatevalue(inuse);
-				this.log('HTTP set power function succeeded!');
-				callback();
-			}
-		}.bind(this);
+		var res = request(this.http_method, this.url, {});
+		if(res.statusCode > 400) {
+			this.log('HTTP power function failed');
+			callback(error);
+		}
+		else {
+			this.log('HTTP power function succeeded!');
+			valveService.getCharacteristic(Characteristic.InUse).updatevalue(inuse);
+			
+			var info = JSON.parse(res.body);
+			this.log(res.body);
+			this.log(info);
+			callback();
+		}
 	},
 	
 	
