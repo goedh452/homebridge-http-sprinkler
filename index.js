@@ -21,7 +21,7 @@ function HttpSprinkler(log, config) {
 	this.checkStatus 	= config["checkStatus"]		|| "no";
 	this.pollingSec	        = config["pollingMillis"]   	|| 1;
 	this.statusUrl          = config["statusUrl"];
-	this.jsonPath		= config["jsonPath"];
+	this.jsonPath		= "json." + config["jsonPath"];
 	this.offValue		= config["offValue"];
 	this.httpMethod         = config["httpMethod"]   	|| "GET";
 
@@ -72,10 +72,8 @@ HttpSprinkler.prototype = {
 			else {
 				var powerOn = false;
 				var json = JSON.parse(responseBody);
-				var jsonResult = json. + this.jsonPath;				
-				var status = jsonResult;
+				var status = this.jsonPath;
 	
-				this.log('JSONRESULT: ' + jsonResult);
 				this.log("STATUS: " + status);
 				
 				if (status != this.offValue) {
