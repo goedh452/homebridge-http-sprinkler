@@ -30,20 +30,27 @@ function HttpSprinkler(log, config) {
 
 HttpSprinkler.prototype = {
 	
-	httpRequest: function (url, body, method, username, password, sendimmediately, callback) {
+	httpRequest: function (url, body, method, callback) {
+		
+		var callbackMethod = callback;
 		
 		request({
-                    url: url,
-                    body: body,
-                    method: method,
-                    rejectUnauthorized: false
-                },
-                function (error, response, body) {
-                    callback(error, response, body)
-                })
+			url: url,
+			body: body,
+			method: method,
+			rejectUnauthorized: false
+		},
+			function (error, response, responseBody) {
+			if (callbackMethod) {
+				callbackMethod(error, response, responseBody)
+			}
+			else {
+				this.log.warn("callbackMethod not defined!");
+			}
+		})
 	},
+		
 
-	
 	getPowerState: function (callback) {
 		//var default_state_off = false
 		//callback(null, !default_state_off);
@@ -55,28 +62,28 @@ HttpSprinkler.prototype = {
 		}
 
 		var url = this.statusUrl;
-		
-		var res = request("GET", url, {});
-		
-		if(res.statusCode > 400) {
-			this.log('HTTP get status function failed: %s', error.message);
-			callback(error);
-		}
-		else {
-			var powerOn = false;
-			var json = JSON.parse(responseBody);
-			var status = json.result[0].Status;
-			
-			if (status != "Off") { 
-				poweron = true;
+
+		this.httpRequest(url, "", "GET", function (error, response, responseBody) {
+			if (error) {
+				this.log('HTTP get status function failed: %s', error.message);
+				callback(error);
 			}
 			else {
-				poweron = false;
+				var powerOn = false;
+				var json = JSON.parse(responseBody);
+				var status = json.result[0].Status;
+				
+				if (status != "Off") {
+					poweron = true;
+				}
+				else {
+					poweron = false;
+				}
+				
+				this.log("status received from: " + url, "state is currently: ", powerOn.toString());
+				callback(null, powerOn);
 			}
-		}
-		
-		this.log("status received from: " + url, "state is currently: ", powerOn.toString());
-		callback(null, powerOn);
+		}.bind(this));
 	},
 	
 	
