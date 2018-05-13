@@ -91,9 +91,8 @@ HttpSprinkler.prototype = {
 			.setCharacteristic(Characteristic.SerialNumber, "Sprinkler Serial Number");
 
 		valveService = new Service.Valve(this.name);
-		valveService
-			.getCharacteristic(Characteristic.ValveType).updateValue(1)
-			.getCharacteristic(Characteristic.Active)
+		valveService.getCharacteristic(Characteristic.ValveType).updateValue(1)
+		valveService.getCharacteristic(Characteristic.Active)
 			.on('set', this.setPowerState.bind(this))
 			// .on('get', this.getStatusState.bind(this))
 
