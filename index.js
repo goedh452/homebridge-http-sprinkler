@@ -72,7 +72,7 @@ HttpSprinkler.prototype = {
 			else {
 				var powerOn = false;
 				var json = JSON.parse(responseBody);
-				var jsonResult = json.this.jsonPath;				
+				var jsonResult = "json." + this.jsonPath;				
 				var status = jsonResult;
 	
 				this.log('JSONRESULT: ' + jsonResult);
