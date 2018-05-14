@@ -277,4 +277,5 @@ HttpSprinkler.prototype =
                 }
 		
 		return [valveService];
+	}
 };
