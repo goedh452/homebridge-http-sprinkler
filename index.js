@@ -143,7 +143,7 @@ HttpSprinkler.prototype =
 			}
 			else 
 			{
-				this.log.warn("callbackMethod not defined!");
+				this.log("callbackMethod not defined!");
 			}
 			})
 	},
@@ -154,7 +154,7 @@ HttpSprinkler.prototype =
 		
 		if (!this.statusUrl || !this.jsonPath || !this.offValue) 
 		{
-			this.log.warn("Ignoring request: Missing status properties in config.json.");
+			this.log("Ignoring request: Missing status properties in config.json.");
 			callback(new Error("No status url defined."));
 			return;
 		}
@@ -199,7 +199,7 @@ HttpSprinkler.prototype =
 
 		if (!this.onUrl || !this.offUrl) 
 		{
-			this.log.warn("Ignoring request: No power url defined.");
+			this.log("Ignoring request: No power url defined.");
 			callback(new Error("No power url defined."));
 			return;
 		}
