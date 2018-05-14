@@ -35,27 +35,38 @@ function HttpSprinkler(log, config)
 	var that = this;
 
 	// Status Polling, if you want to add additional services that don't use switch handling you can add something like this || (this.service=="Smoke" || this.service=="Motion"))
-    if (this.statusUrl && this.checkStatus === "realtime") {
-        var powerurl = this.status_url;
-        var statusemitter = pollingtoevent(function (done) {
-            that.httpRequest(powerurl, "", "GET", "", "", "", function (error, response, body) {
-                if (error) {
+    if (this.statusUrl && this.checkStatus === "realtime") 
+    {
+        var powerurl = this.statusUrl;
+        var statusemitter = pollingtoevent(function (done)
+        {
+            that.httpRequest(powerurl, "", "GET", "", "", "", function (error, response, body)
+            {
+                if (error)
+                {
                     that.log("HTTP get power function failed: %s", error.message);
-                    try {
+                    try 
+                    {
                         done(new Error("Network failure that must not stop homebridge!"));
-                    } catch (err) {
+                    } catch (err) 
+                    {
                         that.log(err.message);
                     }
-                } else {
+                } 
+                else 
+                {
                     done(null, body);
                 }
             })
         }, { longpolling: true, interval: 300, longpollEventName: "statuspoll" });
 
-        function compareStates(customStatus, stateData) {
+        function compareStates(customStatus, stateData) 
+        {
             var objectsEqual = true;
-            for (var param in customStatus) {
-                if (!stateData.hasOwnProperty(param) || customStatus[param] !== stateData[param]) {
+            for (var param in customStatus) 
+            {
+                if (!stateData.hasOwnProperty(param) || customStatus[param] !== stateData[param]) 
+                {
                     objectsEqual = false;
                     break;
                 }
@@ -64,76 +75,47 @@ function HttpSprinkler(log, config)
             return objectsEqual;
         }
 
-        statusemitter.on("statuspoll", function (responseBody) {
+        statusemitter.on("statuspoll", function (responseBody) 
+        {
             var binaryState;
-            if (that.onValue && that.offValue) {	//Check if custom status checks are set
+            if (that.onValue && that.offValue) 
+            {	
                 var customStatusOn = that.onValue;
                 var customStatusOff = that.offValue;
                 var statusOn, statusOff;
 
                 // Check to see if custom states are a json object and if so compare to see if either one matches the state response
-                if (responseBody.startsWith("{")) {
+                if (responseBody.startsWith("z")) 
+                {
                     statusOn = compareStates(customStatusOn, JSON.parse(responseBody));
                     statusOff = compareStates(customStatusOff, JSON.parse(responseBody));
-                } else {
+                } 
+                else 
+                {
                     statusOn = responseBody.includes(customStatusOn);
                     statusOff = responseBody.includes(customStatusOff);
                 }
                 that.log("Status On Status Poll", statusOn);
+                
                 if (statusOn) binaryState = 1;
                 // else binaryState = 0;
                 if (statusOff) binaryState = 0;
-            } else {
+            } 
+            else 
+            {
                 binaryState = parseInt(responseBody.replace(/\D/g, ""));
             }
+            
             that.state = binaryState > 0;
             that.log(that.service, "received power", that.status_url, "state is currently", binaryState);
-            // switch used to easily add additonal services
-            that.enableSet = false;
-            switch (that.service) {
-                case "Switch":
-                    if (that.switchService) {
-                        that.switchService.getCharacteristic(Characteristic.On)
+            
+
+            if (that.valveService) 
+            {
+                that.valveService.getCharacteristic(Characteristic.Active)
                         .setValue(that.state);
-                    }
-                    break;
-                case "Light":
-                    if (that.lightbulbService) {
-                        that.lightbulbService.getCharacteristic(Characteristic.On)
-                        .setValue(that.state);
-                    }
-                    break;
             }
-            that.enableSet = true;
-        });
 
-    }
-
-	var brightnesslvl_url = "no"
-	var brightnessHandling = "no"
-    // Brightness Polling
-    if (brightnesslvl_url && brightnessHandling === "realtime") {
-        var brightnessurl = brightnesslvl_url;
-        var levelemitter = pollingtoevent(function (done) {
-            that.httpRequest(brightnessurl, "", "GET", "", "", "", function (error, response, responseBody) {
-                if (error) {
-                    that.log("HTTP get power function failed: %s", error.message);
-                    return;
-                } else {
-                    done(null, responseBody);
-                }
-            }) // set longer polling as slider takes longer to set value
-        }, { longpolling: true, interval: 300, longpollEventName: "levelpoll" });
-
-        levelemitter.on("levelpoll", function (responseBody) {
-            that.currentlevel = parseInt(responseBody);
-
-            that.enableSet = false;
-            if (that.lightbulbService) {
-                that.log(that.service, "received brightness", brightnesslvl_url, "level is currently", that.currentlevel);
-                that.lightbulbService.getCharacteristic(Characteristic.Brightness)
-                .setValue(that.currentlevel);
-            }
             that.enableSet = true;
         });
     }
