@@ -57,8 +57,8 @@ function HttpSprinkler(log, config)
 				{
 					done(null, body);
 				}
-			}
-		})
+			})
+		}
 	}, { longpolling: true, interval: this.pollingMillis, longpollEventName: "statuspoll" });
 
 		
