@@ -44,7 +44,7 @@ function HttpSprinkler(log, config)
             {
                 if (error)
                 {
-                    that.log("HTTP get power function failed: %s", error.message);
+                    that.log('HTTP get power function failed: %s', error.message);
                     try 
                     {
                         done(new Error("Network failure that must not stop homebridge!"));
@@ -143,7 +143,7 @@ HttpSprinkler.prototype =
 			}
 			else 
 			{
-				this.log("callbackMethod not defined!");
+				this.log('callbackMethod not defined!');
 			}
 			})
 	},
