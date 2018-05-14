@@ -242,11 +242,10 @@ HttpSprinkler.prototype =
 			.setCharacteristic(Characteristic.Model, "Sprinkler Model")
 			.setCharacteristic(Characteristic.SerialNumber, "Sprinkler Serial Number");
 
-		valveService = new Service.Valve(this.name);
+		this.valveService = new Service.Valve(this.name);
 		
-		valveService.getCharacteristic(Characteristic.ValveType).updateValue(1);
-		
-		this.checkStatus = "yes";
+		this.valveService.getCharacteristic(Characteristic.ValveType).updateValue(1);
+
 		switch (this.checkStatus)
 		{
 			//Status polling
@@ -256,7 +255,7 @@ HttpSprinkler.prototype =
 					.on('set', this.setPowerState.bind(this))
 					.on('get', this.getPowerState.bind(this));
 		
-				valveService.getCharacteristic(Characteristic.InUse)
+				this.valveService.getCharacteristic(Characteristic.InUse)
 					.on('get', this.getPowerState.bind(this));
                         break;
 			case "realtime":
@@ -268,7 +267,7 @@ HttpSprinkler.prototype =
 					.on('set', this.setPowerState.bind(this));
 				break;
 			default:
-				this.switchService
+				this.valveService
 					.getCharacteristic(Characteristic.Active)
 					.on('set', this.setPowerState.bind(this))
 				break;
