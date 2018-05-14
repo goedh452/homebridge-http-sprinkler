@@ -56,6 +56,7 @@ function HttpSprinkler(log, config)
                 } 
                 else 
                 {
+			that.log("POLLING ELSE");
                     done(null, body);
                 }
             })
