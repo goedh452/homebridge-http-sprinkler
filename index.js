@@ -226,7 +226,7 @@ HttpSprinkler.prototype =
 		else 
 		{
 			this.log('HTTP power function succeeded!');
-			valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
+			this.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
 			
 			callback();
 		}
