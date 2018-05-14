@@ -121,6 +121,7 @@ function HttpSprinkler(log, config)
 			.setValue(that.state);
 
 		that.enableSet = true;
+		}
 	});
 }
 
