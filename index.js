@@ -26,8 +26,6 @@ function HttpSprinkler(log, config) {
 	this.offValue		= config["offValue"];
 	this.httpMethod         = config["httpMethod"]   	|| "GET";
 
-	var that = this;
-	
 	//realtime polling info
 	this.state = false;
 	this.currentlevel = 0;
