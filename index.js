@@ -37,6 +37,7 @@ function HttpSprinkler(log, config)
 	// Status Polling
     if (this.statusUrl && this.checkStatus === "realtime") 
     {
+	    that.log("POLLING 1");
         var powerurl = this.statusUrl;
         var statusemitter = pollingtoevent(function (done)
         {
@@ -55,7 +56,6 @@ function HttpSprinkler(log, config)
                 } 
                 else 
                 {
-			that.log("POLLING");
                     done(null, body);
                 }
             })
@@ -63,6 +63,7 @@ function HttpSprinkler(log, config)
 
         function compareStates(customStatus, stateData) 
         {
+		that.log("POLLING 2");
             var objectsEqual = true;
             for (var param in customStatus) 
             {
@@ -78,6 +79,7 @@ function HttpSprinkler(log, config)
 
         statusemitter.on("statuspoll", function (responseBody) 
         {
+		that.log("POLLING 3");
             var binaryState;
             if (that.onValue && that.offValue) 
             {	
@@ -249,12 +251,11 @@ HttpSprinkler.prototype =
 		
 		this.valveService.getCharacteristic(Characteristic.ValveType).updateValue(1);
 
-		that.log("CHECKSTATUS: " + this.checkStatus);
 		switch (this.checkStatus)
 		{
 			//Status polling
 			case "yes":
-				that.log("STATUS YES");
+				this.log("Check status: yes");
 				this.valveService
 					.getCharacteristic(Characteristic.Active)
 					.on('set', this.setPowerState.bind(this))
@@ -264,7 +265,7 @@ HttpSprinkler.prototype =
 					.on('get', this.getPowerState.bind(this));
                         break;
 			case "realtime":
-				that.log("POLLING REALTIME");
+				that.log("Check status: realtime");
 				this.valveService
 					.getCharacteristic(Characteristic.Active)
 					.on("get", function (callback) 
@@ -273,7 +274,7 @@ HttpSprinkler.prototype =
 					.on('set', this.setPowerState.bind(this));
 				break;
 			default:
-				that.log("DEFAULT");
+				that.log("Check status: default");
 				this.valveService
 					.getCharacteristic(Characteristic.Active)
 					.on('set', this.setPowerState.bind(this))
