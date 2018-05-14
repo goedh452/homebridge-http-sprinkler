@@ -249,10 +249,12 @@ HttpSprinkler.prototype =
 		
 		this.valveService.getCharacteristic(Characteristic.ValveType).updateValue(1);
 
+		this.log("CHECKSTATUS: " + this.checkStatus);
 		switch (this.checkStatus)
 		{
 			//Status polling
 			case "yes":
+				this.log("STATUS YES");
 				this.valveService
 					.getCharacteristic(Characteristic.Active)
 					.on('set', this.setPowerState.bind(this))
@@ -262,6 +264,7 @@ HttpSprinkler.prototype =
 					.on('get', this.getPowerState.bind(this));
                         break;
 			case "realtime":
+				this.log("POLLING REALTIME");
 				this.valveService
 					.getCharacteristic(Characteristic.Active)
 					.on("get", function (callback) 
@@ -270,6 +273,7 @@ HttpSprinkler.prototype =
 					.on('set', this.setPowerState.bind(this));
 				break;
 			default:
+				this.log("DEFAULT");
 				this.valveService
 					.getCharacteristic(Characteristic.Active)
 					.on('set', this.setPowerState.bind(this))
