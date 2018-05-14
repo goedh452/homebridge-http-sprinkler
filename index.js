@@ -39,9 +39,9 @@ function HttpSprinkler(log, config)
 	{
 		var powerurl = this.statusUrl;
 		var statusemitter = pollingtoevent(function (done) 
-			{
+		{
 			that.httpRequest(powerurl, "", "GET", "", "", "", function (error, response, body) 
-				{
+			{
 				if (error) 
 				{
 					that.log("HTTP get power function failed: %s", error.message);
@@ -57,7 +57,8 @@ function HttpSprinkler(log, config)
 				{
 					done(null, body);
 				}
-			})
+			}
+		})
 	}, { longpolling: true, interval: this.pollingMillis, longpollEventName: "statuspoll" });
 
 		
@@ -121,7 +122,6 @@ function HttpSprinkler(log, config)
 			.setValue(that.state);
 
 		that.enableSet = true;
-		}
 	});
 }
 
