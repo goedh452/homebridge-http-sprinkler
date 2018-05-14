@@ -4,14 +4,16 @@ var request = require("request");
 var pollingtoevent = require('polling-to-event');
 
 
-module.exports = function(homebridge) {
+module.exports = function(homebridge) 
+{
     Service = homebridge.hap.Service;
     Characteristic = homebridge.hap.Characteristic;
     homebridge.registerAccessory("homebridge-http-sprinkler", "HttpSprinkler", HttpSprinkler);
 };
 
 
-function HttpSprinkler(log, config) {
+function HttpSprinkler(log, config) 
+{
 	this.log = log;
 	
 	// Get config info
@@ -33,28 +35,39 @@ function HttpSprinkler(log, config) {
 	var that = this;
 
 	// Status Polling
-	if (this.statusUrl && this.checkStatus === "realtime") {
+	if (this.statusUrl && this.checkStatus === "realtime") 
+	{
 		var powerurl = this.statusUrl;
-		var statusemitter = pollingtoevent(function (done) {
-			that.httpRequest(powerurl, "", "GET", "", "", "", function (error, response, body) {
-				if (error) {
+		var statusemitter = pollingtoevent(function (done) 
+			{
+			that.httpRequest(powerurl, "", "GET", "", "", "", function (error, response, body) 
+				{
+				if (error) 
+				{
 					that.log("HTTP get power function failed: %s", error.message);
-					try {
+					try 
+					{
 						done(new Error("Network failure that must not stop homebridge!"));
-					} catch (err) {
+					} catch (err) 
+					{
 						that.log(err.message);
 					}
-				} else {
+				} 
+				else 
+				{
 					done(null, body);
 				}
 			})
-		}, { longpolling: true, interval: this.pollingMillis, longpollEventName: "statuspoll" });
+	}, { longpolling: true, interval: this.pollingMillis, longpollEventName: "statuspoll" });
 
 		
-	function compareStates(customStatus, stateData) {
+	function compareStates(customStatus, stateData) 
+	{
 		var objectsEqual = true;
-		for (var param in customStatus) {
-			if (!stateData.hasOwnProperty(param) || customStatus[param] !== stateData[param]) {
+		for (var param in customStatus) 
+		{
+			if (!stateData.hasOwnProperty(param) || customStatus[param] !== stateData[param]) 
+			{
 				objectsEqual = false;
 				break;
 			}
@@ -112,10 +125,11 @@ function HttpSprinkler(log, config) {
 }
 
 
-HttpSprinkler.prototype = {
-	
-	httpRequest: function (url, body, method, callback) {
-		
+HttpSprinkler.prototype = 
+{
+
+	httpRequest: function (url, body, method, callback) 
+	{
 		var callbackMethod = callback;
 		
 		request({
@@ -123,21 +137,26 @@ HttpSprinkler.prototype = {
 			body: body,
 			method: method,
 			rejectUnauthorized: false
-		},
-			function (error, response, responseBody) {
-			if (callbackMethod) {
+			},
+			function (error, response, responseBody) 
+			{
+			if (callbackMethod) 
+			{
 				callbackMethod(error, response, responseBody)
 			}
-			else {
+			else 
+			{
 				this.log.warn("callbackMethod not defined!");
 			}
-		})
+			})
 	},
 		
 
-	getPowerState: function (callback) {
+	getPowerState: function (callback) 
+	{
 		
-		if (!this.statusUrl || !this.jsonPath || !this.offValue) {
+		if (!this.statusUrl || !this.jsonPath || !this.offValue) 
+		{
 			this.log.warn("Ignoring request: Missing status properties in config.json.");
 			callback(new Error("No status url defined."));
 			return;
@@ -145,20 +164,25 @@ HttpSprinkler.prototype = {
 
 		var url = this.statusUrl;
 				
-		this.httpRequest(url, "", "GET", function (error, response, responseBody) {
-			if (error) {
+		this.httpRequest(url, "", "GET", function (error, response, responseBody) 
+		{
+			if (error) 
+			{
 				this.log('HTTP get status function failed: %s', error.message);
 				callback(error);
 			}
-			else {
+			else 
+			{
 				var powerOn = false;
 				var json = JSON.parse(responseBody);
 				var status = eval("json." + this.jsonPath);
 				
-				if (status != this.offValue) {
+				if (status != this.offValue) 
+				{
 					powerOn = true;
 				}
-				else {
+				else 
+				{
 					powerOn = false;
 				}
 				
@@ -169,34 +193,41 @@ HttpSprinkler.prototype = {
 	},
 	
 	
-	setPowerState: function (powerOn, callback) {
+	setPowerState: function (powerOn, callback) 
+	{
 		
 		var url;
 		var body;
 		var inuse;
 
-		if (!this.onUrl || !this.offUrl) {
+		if (!this.onUrl || !this.offUrl) 
+		{
 			this.log.warn("Ignoring request: No power url defined.");
 			callback(new Error("No power url defined."));
 			return;
 		}
 
-		if (powerOn) {
+		if (powerOn) 
+		{
 			url = this.onUrl;
 			inuse = 1;
 			this.log("Setting power state to on");
-		} else {
+		} 
+		else 
+		{
 			url = this.offUrl;
 			inuse = 0;
 			this.log("Setting power state to off");
 		}
 		
 		var res = syncRequest(this.httpMethod, url, {});
-		if(res.statusCode > 400) {
+		if(res.statusCode > 400) 
+		{
 			this.log('HTTP power function failed');
 			callback(error);
 		}
-		else {
+		else 
+		{
 			this.log('HTTP power function succeeded!');
 			valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
 			
@@ -216,7 +247,7 @@ HttpSprinkler.prototype = {
 
 		valveService = new Service.Valve(this.name);
 		
-		valveService.getCharacteristic(Characteristic.ValveType).updateValue(1)
+		valveService.getCharacteristic(Characteristic.ValveType).updateValue(1);
 		
 		switch (this.checkStatus)
 		{
@@ -232,18 +263,17 @@ HttpSprinkler.prototype = {
                         break;
 			case "realtime":
 				this.valveService
-				.getCharacteristic(Characteristic.Active)
-				.on("get", function (callback) 
-				{
-					callback(null, that.state)
-				})
-				.on('set', this.setPowerState.bind(this));
-                        break;
+					.getCharacteristic(Characteristic.Active)
+					.on("get", function (callback) 
+					{ callback(null, that.state) })
+					
+					.on('set', this.setPowerState.bind(this));
+				break;
 			default:
 				this.switchService
 					.getCharacteristic(Characteristic.Active)
 					.on('set', this.setPowerState.bind(this))
-                        break;
+				break;
                 }
 		
 		return [valveService];
