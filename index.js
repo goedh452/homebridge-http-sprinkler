@@ -34,7 +34,7 @@ function HttpSprinkler(log, config)
 	this.enableSet = true;
 	var that = this;
 
-	// Status Polling, if you want to add additional services that don't use switch handling you can add something like this || (this.service=="Smoke" || this.service=="Motion"))
+	// Status Polling
     if (this.statusUrl && this.checkStatus === "realtime") 
     {
         var powerurl = this.statusUrl;
@@ -55,6 +55,7 @@ function HttpSprinkler(log, config)
                 } 
                 else 
                 {
+			that.log("POLLING");
                     done(null, body);
                 }
             })
