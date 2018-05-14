@@ -85,7 +85,7 @@ function HttpSprinkler(log, config)
                 var statusOn, statusOff;
 
                 // Check to see if custom states are a json object and if so compare to see if either one matches the state response
-                if (responseBody.startsWith("z")) 
+                if (responseBody.startsWith("{")) 
                 {
                     statusOn = compareStates(customStatusOn, JSON.parse(responseBody));
                     statusOff = compareStates(customStatusOff, JSON.parse(responseBody));
@@ -246,6 +246,7 @@ HttpSprinkler.prototype =
 		
 		valveService.getCharacteristic(Characteristic.ValveType).updateValue(1);
 		
+		this.checkStatus = "yes";
 		switch (this.checkStatus)
 		{
 			//Status polling
