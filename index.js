@@ -273,6 +273,6 @@ HttpSprinkler.prototype =
 				break;
                 }
 		
-		return [valveService];
+		return [this.valveService];
 	}
 };
