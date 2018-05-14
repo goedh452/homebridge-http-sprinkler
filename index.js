@@ -235,6 +235,8 @@ HttpSprinkler.prototype =
 	
 	getServices: function ()
 	{
+		var that = this;
+		
 		var informationService = new Service.AccessoryInformation();
 
 		informationService
