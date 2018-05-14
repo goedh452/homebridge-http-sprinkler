@@ -43,24 +43,28 @@ function HttpSprinkler(log, config)
         {
             that.httpRequest(powerurl, "", "GET", "", "", "", function (error, response, body)
             {
+		    that.log("POLLING 1a");
                 if (error)
                 {
+			that.log("POLLING 1b");
                     that.log('HTTP get power function failed: %s', error.message);
                     try 
                     {
+			    that.log("POLLING 1c");
                         done(new Error("Network failure that must not stop homebridge!"));
                     } catch (err) 
                     {
+			    that.log("POLLING 1d");
                         that.log(err.message);
                     }
                 } 
                 else 
                 {
-			that.log("POLLING ELSE");
+			that.log("POLLING 1e");
                     done(null, body);
                 }
             })
-        }, { longpolling: true, interval: 300, longpollEventName: "statuspoll" });
+        }, { longpolling: true, interval: 2000, longpollEventName: "statuspoll" });
 
         function compareStates(customStatus, stateData) 
         {
