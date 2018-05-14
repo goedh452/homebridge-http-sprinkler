@@ -205,7 +205,8 @@ HttpSprinkler.prototype = {
 	},
 	
 	
-	getServices: function () {
+	getServices: function ()
+	{
 		var informationService = new Service.AccessoryInformation();
 
 		informationService
@@ -217,8 +218,9 @@ HttpSprinkler.prototype = {
 		
 		valveService.getCharacteristic(Characteristic.ValveType).updateValue(1)
 		
-		switch (this.checkStatus) {
-				//Status polling
+		switch (this.checkStatus)
+		{
+			//Status polling
 			case "yes":
 				this.valveService
 					.getCharacteristic(Characteristic.Active)
@@ -231,7 +233,8 @@ HttpSprinkler.prototype = {
 			case "realtime":
 				this.valveService
 				.getCharacteristic(Characteristic.Active)
-				.on("get", function (callback) {
+				.on("get", function (callback) 
+				{
 					callback(null, that.state)
 				})
 				.on('set', this.setPowerState.bind(this));
@@ -244,5 +247,4 @@ HttpSprinkler.prototype = {
                 }
 		
 		return [valveService];
-	}
 };
