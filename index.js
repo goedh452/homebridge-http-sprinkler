@@ -143,7 +143,7 @@ HttpSprinkler.prototype =
 			}
 			else 
 			{
-				that.log("callbackMethod not defined!");
+				//this.log("callbackMethod not defined!");
 			}
 			})
 	},
