@@ -220,15 +220,19 @@ HttpSprinkler.prototype =
 			//Status polling
 			case "once":
 				this.log("Check status: once");
-				var powerSate = this.getPowerState.bind(this)
+				var powerState = this.getPowerState.bind(this)
+				var powerStateInt = 0
 				
 				this.valveService
 					.getCharacteristic(Characteristic.Active)
 					.on('set', this.setPowerState.bind(this))
-					.on('get', powerSate);
+					.on('get', powerState);
+				
+				if powerStateInt { powerStateInt = 1 }
+				else { powerStateInt = 0}
 				
 				this.valveService.getCharacteristic(Characteristic.InUse)
-					.updateValue(powerSate);
+					.updateValue(powerStateInt);
 				
                         break;
 			case "realtime":
