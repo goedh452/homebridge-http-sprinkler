@@ -24,8 +24,8 @@ function HttpSprinkler(log, config)
 	this.pollingMillis      = config["pollingMillis"]   	|| 3000;
 	this.statusUrl          = config["statusUrl"];
 	this.jsonPath		= config["jsonPath"];
-	this.onValue		= config["onValue"];
-	this.offValue		= config["offValue"];
+	this.onValue		= config["onValue"]		|| "On";
+	this.offValue		= config["offValue"];		|| "Off';
 	this.httpMethod         = config["httpMethod"]   	|| "GET";
 
 	//realtime polling info
@@ -41,7 +41,7 @@ function HttpSprinkler(log, config)
         var powerurl = this.statusUrl;
         var statusemitter = pollingtoevent(function (done)
         {	that.log("POLLING 1a");
-            that.httpRequest(powerurl, "", "GET", "", function (error, response, body)
+            that.httpRequest(powerurl, "", "GET", function (error, response, body)
             {
 		    
                 if (error)
@@ -66,60 +66,36 @@ function HttpSprinkler(log, config)
             })
         }, { longpolling: true, interval: 2000, longpollEventName: "statuspoll" });
 
-        function compareStates(customStatus, stateData) 
-        {
-		that.log("POLLING 2");
-            var objectsEqual = true;
-            for (var param in customStatus) 
-            {
-                if (!stateData.hasOwnProperty(param) || customStatus[param] !== stateData[param]) 
-                {
-                    objectsEqual = false;
-                    break;
-                }
-            }
-            // that.log("Equal", objectsEqual);
-            return objectsEqual;
-        }
 
         statusemitter.on("statuspoll", function (responseBody) 
         {
 		that.log("POLLING 3");
             var binaryState;
             if (that.onValue && that.offValue) 
-            {	
+            {
+		var json = JSON.parse(responseBody);
+		var status = eval("json." + this.jsonPath);
+		var statusOn = false;
+		    
+		    if (status != this.offValue) 
+				{
+					statusOn = true;
+				}
+				else 
+				{
+					statusOn = false;
+				}
        
-		    var customStatusOn = that.onValue;
-                var customStatusOff = that.offValue;
-                var statusOn, statusOff;
-
-                // Check to see if custom states are a json object and if so compare to see if either one matches the state response
-		that.log("RESPONSEBODY: " + responseBody);
-                if (responseBody.startsWith("{")) 
-                {
-                    statusOn = compareStates(customStatusOn, JSON.parse(responseBody));
-                    statusOff = compareStates(customStatusOff, JSON.parse(responseBody));
-                } 
-                else 
-                {
-                    statusOn = responseBody.includes(customStatusOn);
-                    statusOff = responseBody.includes(customStatusOff);
-                }
                 that.log("Status On Status Poll", statusOn);
                 
                 if (statusOn) binaryState = 1;
-                // else binaryState = 0;
-                if (statusOff) binaryState = 0;
+                if (statusOn) binaryState = 0;
             } 
-            else 
-            {
-                binaryState = parseInt(responseBody.replace(/\D/g, ""));
-            }
+
             
             that.state = binaryState > 0;
-            that.log(that.service, "received power", that.status_url, "state is currently", binaryState);
-            
-
+            that.log(that.service, "received power from polling", that.status_url, "state is currently", binaryState);
+ 
             if (that.valveService) 
             {
                 that.valveService.getCharacteristic(Characteristic.Active)
