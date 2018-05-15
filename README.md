@@ -3,7 +3,7 @@ A switch plugin for homebridge (https://github.com/nfarina/homebridge) which int
 
 Based on homebridge-http-switch from vectronic (https://github.com/vectronic/homebridge-http-switch)
 
-A plugin for sprinkler that can be controlled with an API.
+A plugin for sprinklers that can be controlled with an API.
 
 
 # Installation
