@@ -77,6 +77,7 @@ function HttpSprinkler(log, config)
 		var statusOn = 0;
 		    
 		    that.log(responseBody);
+		    that.log("STATUS: " + status);
 		    
 		    if (status != this.offValue) 
 				{
