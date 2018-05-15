@@ -40,45 +40,36 @@ function HttpSprinkler(log, config)
 	    that.log("POLLING 1");
         var powerurl = this.statusUrl;
         var statusemitter = pollingtoevent(function (done)
-        {	that.log("POLLING 1a");
+        {
             that.httpRequest(powerurl, "", "GET", function (error, response, body)
             {
 		    
                 if (error)
                 {
-			that.log("POLLING 1b");
                     that.log('HTTP get power function failed: %s', error.message);
                     try 
                     {
-			    that.log("POLLING 1c");
                         done(new Error("Network failure that must not stop homebridge!"));
                     } catch (err) 
                     {
-			    that.log("POLLING 1d");
                         that.log(err.message);
                     }
                 } 
                 else 
                 {
-			that.log("POLLING 1e");
                     done(null, body);
                 }
             })
-        }, { longpolling: true, interval: 2000, longpollEventName: "statuspoll" });
+        }, { longpolling: true, interval: 5000, longpollEventName: "statuspoll" });
 
 
         statusemitter.on("statuspoll", function (responseBody) 
         {
-		that.log("POLLING 3");
             if (that.onValue && that.offValue) 
             {
 		var json = JSON.parse(responseBody);
 		var status = eval("json." + that.jsonPath);
 		var statusOn = 0;
-		    
-		    that.log(responseBody);
-		    that.log("STATUS: " + status);
-		    that.log("JSONPATH: " + that.jsonPath);
 		    
 		    if (status == that.onValue) { statusOn = 1; }
 		    if (status == that.offValue) { statusOn = 0; }
