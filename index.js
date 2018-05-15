@@ -75,31 +75,27 @@ function HttpSprinkler(log, config)
             {
 		var json = JSON.parse(responseBody);
 		var status = eval("json." + this.jsonPath);
-		var statusOn = false;
+		var statusOn = 0;
 		    
 		    if (status != this.offValue) 
 				{
-					statusOn = true;
+					statusOn = 1;
 				}
 				else 
 				{
-					statusOn = false;
+					statusOn = 0;
 				}
        
                 that.log("Status On Status Poll", statusOn);
-                
-                if (statusOn) binaryState = 1;
-                if (statusOn) binaryState = 0;
-            } 
-
-            
-            that.state = binaryState > 0;
-            that.log(that.service, "received power from polling", that.status_url, "state is currently", binaryState);
+               } 
+          
+            that.log("Received power from polling", that.statusUrl, "state is currently", statusOn);
  
             if (that.valveService) 
             {
-                that.valveService.getCharacteristic(Characteristic.Active)
-                        .setValue(that.state);
+		    that.log("Characteristics aanpassen!");
+                //that.valveService.getCharacteristic(Characteristic.Active)
+                //        .setValue(that.statusOn);
             }
 
             that.enableSet = true;
