@@ -25,7 +25,7 @@ function HttpSprinkler(log, config)
 	this.statusUrl          = config["statusUrl"];
 	this.jsonPath		= config["jsonPath"];
 	this.onValue		= config["onValue"]		|| "On";
-	this.offValue		= config["offValue"]		|| "Off';
+	this.offValue		= config["offValue"]		|| "Off";
 	this.httpMethod         = config["httpMethod"]   	|| "GET";
 
 	//realtime polling info
