@@ -29,8 +29,7 @@ function HttpSprinkler(log, config)
 	this.httpMethod         = config["httpMethod"]   	|| "GET";
 
 	//realtime polling info
-	this.state = false;
-	this.currentlevel = 0;
+	this.statusOn = false;
 	this.enableSet = true;
 	var that = this;
 
@@ -229,15 +228,12 @@ HttpSprinkler.prototype =
 					.getCharacteristic(Characteristic.Active)
 					.on('set', this.setPowerState.bind(this))
 					.on('get', this.getPowerState.bind(this));
-		
-				this.valveService.getCharacteristic(Characteristic.InUse)
-					.on('get', this.getPowerState.bind(this));
                         break;
 			case "realtime":
 				that.log("Check status: realtime");
 				this.valveService
 					.getCharacteristic(Characteristic.Active)
-					.on("get", function (callback) 
+					.on('get', function (callback) 
 					{ callback(null, that.statusOn) })
 					
 					.on('set', this.setPowerState.bind(this));
