@@ -34,7 +34,7 @@ function HttpSprinkler(log, config)
 	var that = this;
 
 	// Status Polling
-	if (this.statusUrl && this.checkStatus === "realtime") 
+	if (this.statusUrl && this.checkStatus === "polling") 
 	{
 		var powerurl = this.statusUrl;
 		var statusemitter = pollingtoevent(function (done)
@@ -235,8 +235,8 @@ HttpSprinkler.prototype =
 					.updateValue(powerStateInt);
 				
                         break;
-			case "realtime":
-				that.log("Check status: realtime");
+			case "polling":
+				that.log("Check status: polling");
 				this.valveService
 					.getCharacteristic(Characteristic.Active)
 					.on('get', function (callback) 
