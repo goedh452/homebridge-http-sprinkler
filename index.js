@@ -73,12 +73,12 @@ function HttpSprinkler(log, config)
             if (that.onValue && that.offValue) 
             {
 		var json = JSON.parse(responseBody);
-		var status = eval("json." + this.jsonPath);
+		var status = eval("json." + that.jsonPath);
 		var statusOn = 0;
 		    
 		    that.log(responseBody);
 		    that.log("STATUS: " + status);
-		    that.log("JSONPATH: " + this.jsonPath);
+		    that.log("JSONPATH: " + that.jsonPath);
 		    
 		    if (status != this.offValue) 
 				{
