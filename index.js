@@ -93,6 +93,7 @@ function HttpSprinkler(log, config)
                 var statusOn, statusOff;
 
                 // Check to see if custom states are a json object and if so compare to see if either one matches the state response
+		that.log("RESPONSEBODY: " + responseBody);
                 if (responseBody.startsWith("{")) 
                 {
                     statusOn = compareStates(customStatusOn, JSON.parse(responseBody));
