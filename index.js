@@ -70,11 +70,9 @@ function HttpSprinkler(log, config)
 				
 				if (status == that.onValue) { statusOn = 1; }
 				if (status == that.offValue) { statusOn = 0; }
-	       
-				that.log("Status On Status Poll", statusOn);
 			} 
           
-			that.log("Received power from polling", that.statusUrl, "state is currently", statusOn);
+			that.log("State is currently:", statusOn);
  
 			if (that.valveService) 
 			{
