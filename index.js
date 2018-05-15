@@ -70,12 +70,13 @@ function HttpSprinkler(log, config)
         statusemitter.on("statuspoll", function (responseBody) 
         {
 		that.log("POLLING 3");
-            var binaryState;
             if (that.onValue && that.offValue) 
             {
 		var json = JSON.parse(responseBody);
 		var status = eval("json." + this.jsonPath);
 		var statusOn = 0;
+		    
+		    that.log(responseBody);
 		    
 		    if (status != this.offValue) 
 				{
