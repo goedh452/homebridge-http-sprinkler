@@ -31,11 +31,7 @@ httpMethod       | No          | Method for sending requests (default GET)
 
 Configuration sample:
 
-URL's based on Domoticz JSON API
-
- ```
- URL's based on Domoticz JSON API
- 
+ ``` 
 "accessories": [ 
         {
                 "accessory": "HttpSprinkler",
