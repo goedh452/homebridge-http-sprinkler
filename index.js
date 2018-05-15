@@ -17,7 +17,7 @@ function HttpSprinkler(log, config)
 	this.log = log;
 	
 	// Get config info
-	this.name		= config["name"]          	|| "HTTP Switch";
+	this.name		= config["name"]          	|| "HTTP Sprinkler";
 	this.onUrl              = config["onUrl"];
 	this.offUrl             = config["offUrl"];
 	this.checkStatus 	= config["checkStatus"]		|| "no";
