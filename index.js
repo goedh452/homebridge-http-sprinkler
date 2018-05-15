@@ -228,7 +228,7 @@ HttpSprinkler.prototype =
 					.on('set', this.setPowerState.bind(this))
 					.on('get', powerState);
 				
-				if powerState { powerStateInt = 1 }
+				if (powerState) { powerStateInt = 1 }
 				else { powerStateInt = 0}
 				
 				this.valveService.getCharacteristic(Characteristic.InUse)
