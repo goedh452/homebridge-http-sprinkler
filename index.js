@@ -80,15 +80,9 @@ function HttpSprinkler(log, config)
 		    that.log("STATUS: " + status);
 		    that.log("JSONPATH: " + that.jsonPath);
 		    
-		    if (status != this.offValue) 
-				{
-					statusOn = 1;
-				}
-				else 
-				{
-					statusOn = 0;
-				}
-       
+		    if (status == that.onValue) { statusOn = 1; }
+		    if (status == that.offValue) { statusOn = 0; }
+	       
                 that.log("Status On Status Poll", statusOn);
                } 
           
