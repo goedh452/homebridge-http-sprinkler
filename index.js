@@ -82,9 +82,9 @@ function HttpSprinkler(log, config)
             {
 		    that.log("Characteristics aanpassen!");
                 that.valveService.getCharacteristic(Characteristic.Active)
-                        .setValue(that.statusOn);
+                        .setValue(statusOn);
 		   that.valveService.getCharacteristic(Characteristic.InUse)
-                        .updateValue(that.statusOn);
+                        .updateValue(statusOn);
             }
 
             that.enableSet = true;
