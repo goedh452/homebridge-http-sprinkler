@@ -40,10 +40,10 @@ function HttpSprinkler(log, config)
 	    that.log("POLLING 1");
         var powerurl = this.statusUrl;
         var statusemitter = pollingtoevent(function (done)
-        {
+        {that.log("POLLING 1a");
             that.httpRequest(powerurl, "", "GET", "", "", "", function (error, response, body)
             {
-		    that.log("POLLING 1a");
+		    
                 if (error)
                 {
 			that.log("POLLING 1b");
