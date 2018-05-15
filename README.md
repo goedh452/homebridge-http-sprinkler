@@ -1,10 +1,10 @@
 # homebridge-http-sprinkler
+A switch plugin for homebridge (https://github.com/nfarina/homebridge) which integrates with HTTP(S) APIs.
 
 Based on homebridge-http-switch from vectronic (https://github.com/vectronic/homebridge-http-switch)
 
-# homebridge-http-sprinkler
+A plugin for sprinkler that can be controlled with an API.
 
-A switch plugin for homebridge (https://github.com/nfarina/homebridge) which integrates with HTTP(S) APIs.
 
 # Installation
 
@@ -30,6 +30,8 @@ httpMethod       | No          | Method for sending requests (default GET)
 
 
 Configuration sample:
+
+URL's based on Domoticz JSON API
 
  ```
  URL's based on Domoticz JSON API
