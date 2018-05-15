@@ -29,8 +29,7 @@ httpMethod       | No          | Method for sending requests (default GET)
 
 
 
-Configuration sample:
-URL's based on Domoticz JSON API
+Configuration sample based on Domoticz JSON API:
 
  ``` 
 "accessories": [ 
