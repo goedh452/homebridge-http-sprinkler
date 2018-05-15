@@ -238,7 +238,7 @@ HttpSprinkler.prototype =
 				this.valveService
 					.getCharacteristic(Characteristic.Active)
 					.on("get", function (callback) 
-					{ callback(null, that.state) })
+					{ callback(null, that.statusOn) })
 					
 					.on('set', this.setPowerState.bind(this));
 				break;
