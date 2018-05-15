@@ -79,7 +79,7 @@ function HttpSprinkler(log, config)
 			if (that.valveService) 
 			{
 				that.valveService.getCharacteristic(Characteristic.Active)
-					.setValue(statusOn);
+					.updateValue(statusOn);
 		   
 				that.valveService.getCharacteristic(Characteristic.InUse)
 					.updateValue(statusOn);
