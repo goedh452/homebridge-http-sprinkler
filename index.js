@@ -57,7 +57,7 @@ function HttpSprinkler(log, config)
 					done(null, body);
 				}
 			})
-		}, { longpolling: true, interval: 5000, longpollEventName: "statuspoll" });
+		}, { longpolling: true, interval: that.pollingMillis, longpollEventName: "statuspoll" });
 
 
 		statusemitter.on("statuspoll", function (responseBody) 
