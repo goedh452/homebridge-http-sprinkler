@@ -21,7 +21,7 @@ function HttpSprinkler(log, config)
 	this.onUrl              = config["onUrl"];
 	this.offUrl             = config["offUrl"];
 	this.checkStatus 	= config["checkStatus"]		|| "no";
-	this.pollingMillis      = config["pollingMillis"]   	|| 3000;
+	this.pollingInterval    = config["pollingInterval"]   	|| 3000;
 	this.statusUrl          = config["statusUrl"];
 	this.jsonPath		= config["jsonPath"];
 	this.onValue		= config["onValue"]		|| "On";
@@ -57,7 +57,7 @@ function HttpSprinkler(log, config)
 					done(null, body);
 				}
 			})
-		}, { longpolling: true, interval: that.pollingMillis, longpollEventName: "statuspoll" });
+		}, { longpolling: true, interval: that.pollingInterval, longpollEventName: "statuspoll" });
 
 
 		statusemitter.on("statuspoll", function (responseBody) 
