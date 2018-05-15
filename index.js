@@ -41,7 +41,7 @@ function HttpSprinkler(log, config)
         var powerurl = this.statusUrl;
         var statusemitter = pollingtoevent(function (done)
         {	that.log("POLLING 1a");
-            that.httpRequest(powerurl, "", "GET", function (error, response, body)
+            that.httpRequest(powerurl, "", "GET", "", function (error, response, body)
             {
 		    
                 if (error)
@@ -88,7 +88,8 @@ function HttpSprinkler(log, config)
             var binaryState;
             if (that.onValue && that.offValue) 
             {	
-                var customStatusOn = that.onValue;
+       
+		    var customStatusOn = that.onValue;
                 var customStatusOff = that.offValue;
                 var statusOn, statusOff;
 
