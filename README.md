@@ -20,7 +20,7 @@ name             | No          | Name in home app (default HTTP Sprinkler)
 onUrl            | Yes         | URL for turning on the sprinkler
 offUrl           | Yes         | URL for turning off the sprinkler
 checkStatus      | No          | Indicator if status should be checked via the API (possible values: once, polling, no; default no)
-pollingInterval  | No          | If checkStatus is polling, the pollinginterval can be specified in milliseconds (default 3000 (3 seconds)
+pollingInterval  | No          | If checkStatus is polling, the pollinginterval can be specified in milliseconds (default 3000 (3 seconds))
 statusUrl        | No          | URL to check the status via the API; required when checkStatus is once or polling
 jsonPath         | No          | json Path where the status can be found; required when checkStatus is once or polling
 onValue          | No          | Value for On when status is checked (default On)
