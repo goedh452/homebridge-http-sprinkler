@@ -78,6 +78,7 @@ function HttpSprinkler(log, config)
 		    
 		    that.log(responseBody);
 		    that.log("STATUS: " + status);
+		    that.log("JSONPATH: " + this.jsonPath);
 		    
 		    if (status != this.offValue) 
 				{
