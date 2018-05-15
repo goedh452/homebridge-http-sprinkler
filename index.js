@@ -34,62 +34,60 @@ function HttpSprinkler(log, config)
 	var that = this;
 
 	// Status Polling
-    if (this.statusUrl && this.checkStatus === "realtime") 
-    {
-	    that.log("POLLING 1");
-        var powerurl = this.statusUrl;
-        var statusemitter = pollingtoevent(function (done)
-        {
-            that.httpRequest(powerurl, "", "GET", function (error, response, body)
-            {
-		    
-                if (error)
-                {
-                    that.log('HTTP get power function failed: %s', error.message);
-                    try 
-                    {
-                        done(new Error("Network failure that must not stop homebridge!"));
-                    } catch (err) 
-                    {
-                        that.log(err.message);
-                    }
-                } 
-                else 
-                {
-                    done(null, body);
-                }
-            })
-        }, { longpolling: true, interval: 5000, longpollEventName: "statuspoll" });
+	if (this.statusUrl && this.checkStatus === "realtime") 
+	{
+		var powerurl = this.statusUrl;
+		var statusemitter = pollingtoevent(function (done)
+			{
+			that.httpRequest(powerurl, "", "GET", function (error, response, body)
+				{
+					if (error)
+					{
+						that.log('HTTP get power function failed: %s', error.message);
+						try 
+						{
+							done(new Error("Network failure that must not stop homebridge!"));
+						} catch (err) 
+						{
+							that.log(err.message);
+						}
+					} 
+				else 
+				{
+					done(null, body);
+				}
+			})
+		}, { longpolling: true, interval: 5000, longpollEventName: "statuspoll" });
 
 
-        statusemitter.on("statuspoll", function (responseBody) 
-        {
-            if (that.onValue && that.offValue) 
-            {
-		var json = JSON.parse(responseBody);
-		var status = eval("json." + that.jsonPath);
-		var statusOn = 0;
-		    
-		    if (status == that.onValue) { statusOn = 1; }
-		    if (status == that.offValue) { statusOn = 0; }
+		statusemitter.on("statuspoll", function (responseBody) 
+		{
+			if (that.onValue && that.offValue) 
+			{
+				var json = JSON.parse(responseBody);
+				var status = eval("json." + that.jsonPath);
+				var statusOn = 0;
+				
+				if (status == that.onValue) { statusOn = 1; }
+				if (status == that.offValue) { statusOn = 0; }
 	       
-                that.log("Status On Status Poll", statusOn);
-               } 
+				that.log("Status On Status Poll", statusOn);
+			} 
           
-            that.log("Received power from polling", that.statusUrl, "state is currently", statusOn);
+			that.log("Received power from polling", that.statusUrl, "state is currently", statusOn);
  
-            if (that.valveService) 
-            {
-		    that.log("Characteristics aanpassen!");
-                that.valveService.getCharacteristic(Characteristic.Active)
-                        .setValue(statusOn);
-		   that.valveService.getCharacteristic(Characteristic.InUse)
-                        .updateValue(statusOn);
-            }
+			if (that.valveService) 
+			{
+				that.valveService.getCharacteristic(Characteristic.Active)
+					.setValue(statusOn);
+		   
+				that.valveService.getCharacteristic(Characteristic.InUse)
+					.updateValue(statusOn);
+			}
 
-            that.enableSet = true;
-        });
-    }
+			that.enableSet = true;
+		});
+	}
 }
 
 
