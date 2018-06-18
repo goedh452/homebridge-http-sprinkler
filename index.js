@@ -254,7 +254,8 @@ HttpSprinkler.prototype =
 				break;
                 }
 		
-		this.valveService.addCharacteristic(Characteristic.SetDuration)
+		if (this.useTimer) {
+			this.valveService.addCharacteristic(Characteristic.SetDuration)
 					.on('change', (data)=> 
 						{
 							console.log("Valve Time Duration Set to: " + data.newValue + " seconds")
@@ -317,6 +318,7 @@ HttpSprinkler.prototype =
 								}
 							}
 						}); // end .on('change' ...
+			} // end if(this.useTimer)
 		
 		return [this.valveService];
 	}
