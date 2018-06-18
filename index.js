@@ -291,17 +291,17 @@ HttpSprinkler.prototype =
 								{
 									var timer = this.valveService.getCharacteristic(Characteristic.SetDuration).value;
 									
-									if (timer < this.config.minTime) 
+									if (timer < this.minTime) 
 										{
 											console.log(magenta("Selected Valve On Duration of: ") + cyan(timer) 
 													+ 	magenta(" seconds is less than the minimum permitted time, setting On time to: ") 
-													+ 	cyan(this.config.minTime) + " seconds");
-													timer = this.config.minTime
+													+ 	cyan(this.minTime) + " seconds");
+													timer = this.minTime
 										}
 									this.valveService.getCharacteristic(Characteristic.RemainingDuration)
 										.updateValue(timer);
 									
-									console.log(yellow("Turning Valve ") + cyan(this.config.name) + yellow(" on with Timer set to: ")+ cyan(timer) + yellow(" seconds"));									
+									console.log(yellow("Turning Valve ") + cyan(this.name) + yellow(" on with Timer set to: ")+ cyan(timer) + yellow(" seconds"));									
 									this.valveService.timer = setTimeout( ()=> {
 														console.log(yellow("Valve Timer Expired. Shutting off Valve"));
 														// use 'setvalue' when the timer ends so it triggers the .on('set'...) event
