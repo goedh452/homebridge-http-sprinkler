@@ -17,6 +17,7 @@ A plugin for sprinklers that can be controlled with an API.
 Name             | Required    | Description
 ---------------- | ----------- | --------------------------------------------
 name             | No          | Name in home app (default HTTP Sprinkler)
+icon             | No          | Icon displayed in Home app (possible values: 0, 1, 2, 3; default 0)
 onUrl            | Yes         | URL for turning on the sprinkler
 offUrl           | Yes         | URL for turning off the sprinkler
 checkStatus      | No          | Indicator if status should be checked via the API (possible values: once, polling, no; default no)
