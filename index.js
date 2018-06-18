@@ -18,6 +18,7 @@ function HttpSprinkler(log, config)
 	
 	// Get config info
 	this.name		= config["name"]          	|| "HTTP Sprinkler";
+	this.icon		= config["icon"]		|| 0
 	this.onUrl              = config["onUrl"];
 	this.offUrl             = config["offUrl"];
 	this.checkStatus 	= config["checkStatus"]		|| "no";
@@ -215,7 +216,7 @@ HttpSprinkler.prototype =
 
 		this.valveService = new Service.Valve(this.name);
 		
-		this.valveService.getCharacteristic(Characteristic.ValveType).updateValue(1);
+		this.valveService.getCharacteristic(Characteristic.ValveType).updateValue(this.icon);
 
 		switch (this.checkStatus)
 		{
