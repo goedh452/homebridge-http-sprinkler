@@ -305,7 +305,7 @@ HttpSprinkler.prototype =
 									
 									console.log("Turning Valve "
 										    	+ this.name
-										    	+ yellow" on with Timer set to: "
+										    	+ " on with Timer set to: "
 										    	+ timer
 										    	+ " seconds");									
 									this.valveService.timer = setTimeout( ()=> {
