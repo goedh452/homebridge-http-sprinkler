@@ -39,6 +39,7 @@ Configuration sample based on Domoticz JSON API:
         {
                 "accessory": "HttpSprinkler",
                 "name": "Sprinkler backyard",
+                "icon": 1,
                 "onUrl": "http://localhost:8080/json.htm?type=command&param=switchlight&idx=135&switchcmd=On",
                 "offUrl": "http://localhost:8080/json.htm?type=command&param=switchlight&idx=135&switchcmd=Off",
                 "checkStatus": "polling",
