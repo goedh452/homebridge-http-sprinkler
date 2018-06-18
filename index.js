@@ -26,7 +26,7 @@ function HttpSprinkler(log, config)
 	this.jsonPath		= config["jsonPath"];
 	this.onValue		= config["onValue"]		|| "On";
 	this.offValue		= config["offValue"]		|| "Off";
-	this.useTimer		= config["useTimer"]		|| false;
+	this.useTimer		= config["useTimer"]		|| "no";
 	this.minTime		= config["minTime"]		|| 1;
 	this.httpMethod         = config["httpMethod"]   	|| "GET";
 
@@ -254,7 +254,7 @@ HttpSprinkler.prototype =
 				break;
                 }
 		
-		if (this.useTimer) {
+		if (this.useTimer == "yes") {
 			this.valveService.addCharacteristic(Characteristic.SetDuration)
 					.on('change', (data)=> 
 						{
