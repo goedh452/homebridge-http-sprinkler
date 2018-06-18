@@ -25,7 +25,7 @@ statusUrl        | No          | URL to check the status via the API; required w
 jsonPath         | No          | JSON Path where the status can be found; required when checkStatus is once or polling
 onValue          | No          | Value for On when status is checked (default On)
 offValue         | No          | Value for Off when status is checked (default Off)
-useTimer         | No          | Indication if a timer can be used (possible values: true, false; default false)
+useTimer         | No          | Indication if a timer can be used (possible values: yes, no; default no)
 minTime          | No          | Minimum time in seconds the timer can be set (default 1 second)
 httpMethod       | No          | Method for sending requests (default GET)
 
@@ -46,7 +46,7 @@ Configuration sample based on Domoticz JSON API:
                 "jsonPath": "result[0].Status",
                 "onValue": "On",
                 "offValue": "Off",
-                "useTimer": true,
+                "useTimer": "yes",
                 "minTime": 10,
                 "httpMethod": "GET"
         }
