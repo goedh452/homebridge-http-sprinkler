@@ -266,7 +266,7 @@ HttpSprinkler.prototype =
 								clearTimeout(this.valveService.timer); // clear any existing timer
 								this.valveService.timer = setTimeout( ()=> 
 										{
-											console.log(yellow("Valve Timer Expired. Shutting off Valve"));
+											console.log("Valve Timer Expired. Shutting off Valve");
 											// use 'setvalue' when the timer ends so it triggers the .on('set'...) event
 											this.valveService.getCharacteristic(Characteristic.Active).setValue(0); 
 										}, (data.newValue *1000));	
