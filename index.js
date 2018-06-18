@@ -257,7 +257,7 @@ HttpSprinkler.prototype =
 		this.valveService.addCharacteristic(Characteristic.SetDuration)
 					.on('change', (data)=> 
 						{
-							console.log(yellow("Valve Time Duration Set to: " + data.newValue + " seconds"))
+							console.log("Valve Time Duration Set to: " + data.newValue + " seconds")
 							if(this.valveService.getCharacteristic(Characteristic.InUse).value)
 							{
 								this.valveService.getCharacteristic(Characteristic.RemainingDuration)
