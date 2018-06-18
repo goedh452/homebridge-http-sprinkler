@@ -26,7 +26,7 @@ jsonPath         | No          | JSON Path where the status can be found; requir
 onValue          | No          | Value for On when status is checked (default On)
 offValue         | No          | Value for Off when status is checked (default Off)
 useTimer         | No          | Indication if a timer can be used (possible values: true, false; default false)
-minTime          | No          | Minimum time in seconds a timer can be set, below this value the valve will shut off immidiately (default 1 second)
+minTime          | No          | Minimum time in seconds the timer can be set (default 1 second)
 httpMethod       | No          | Method for sending requests (default GET)
 
 
