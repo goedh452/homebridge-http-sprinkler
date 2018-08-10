@@ -190,7 +190,7 @@ HttpSprinkler.prototype =
 		{
 			if (error)
 			{
-				this.log("HTTP set power function failed: ", error.message);
+				this.log("HTTP set power function failed.");
 				try 
 				{
 					done(new Error("Network failure that must not stop homebridge!"));
