@@ -166,7 +166,7 @@ HttpSprinkler.prototype =
 		var body;
 		var inuse;
 		
-		this.log = log;
+		var that = this;
 
 		if (!this.onUrl || !this.offUrl) 
 		{
@@ -192,19 +192,19 @@ HttpSprinkler.prototype =
 		{
 			if (error)
 			{
-				this.log("HTTP set power function failed.");
+				that.log("HTTP set power function failed.");
 				try 
 				{
 					done(new Error("Network failure that must not stop homebridge!"));
 				} catch (err) 
 				{
-					this.log(err.message);
+					that.log(err.message);
 				}
 			} 
 			else 
 			{
-				this.log("HTTP power function succeeded!");
-				this.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
+				that.log("HTTP power function succeeded!");
+				that.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
 			
 				callback();
 			}
