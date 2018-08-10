@@ -165,6 +165,8 @@ HttpSprinkler.prototype =
 		var url;
 		var body;
 		var inuse;
+		
+		this.log = log;
 
 		if (!this.onUrl || !this.offUrl) 
 		{
@@ -190,7 +192,7 @@ HttpSprinkler.prototype =
 		{
 			if (error)
 			{
-				//this.log("HTTP set power function failed.");
+				this.log("HTTP set power function failed.");
 				try 
 				{
 					done(new Error("Network failure that must not stop homebridge!"));
