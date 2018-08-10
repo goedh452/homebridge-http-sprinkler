@@ -193,9 +193,10 @@ HttpSprinkler.prototype =
 			if (error)
 			{
 				that.log("HTTP set power function failed %s", error.message);
+				that.valveService.getCharacteristic(Characteristic.InUse).updateValue(0);
 				try 
 				{
-					done(new Error("Network failure that must not stop homebridge!"));
+					// Network failure that must not stop homebridge!
 				} catch (err) 
 				{
 					that.log(err.message);
