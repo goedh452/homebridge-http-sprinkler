@@ -187,19 +187,28 @@ HttpSprinkler.prototype =
 			this.log("Setting power state to off");
 		}
 		
-		var res = syncRequest(this.httpMethod, url, {});
-		if(res.statusCode > 400) 
-		{
-			this.log('HTTP power function failed');
-			callback(error);
-		}
-		else 
-		{
-			this.log('HTTP power function succeeded!');
-			this.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
+		this.httpRequest(url, "", "GET", function (error, response, body)
+				{
+					if (error)
+					{
+						that.log('HTTP set power function failed: %s', error.message);
+						try 
+						{
+							done(new Error("Network failure that must not stop homebridge!"));
+						} catch (err) 
+						{
+							that.log(err.message);
+						}
+					} 
+				else 
+				{
+					this.log('HTTP power function succeeded!');
+					this.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
 			
-			callback();
-		}
+					callback();
+				}
+			})
+		
 	},
 	
 	
