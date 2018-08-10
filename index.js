@@ -162,7 +162,6 @@ HttpSprinkler.prototype =
 	
 	setPowerState: function (powerOn, callback) 
 	{
-		
 		var url;
 		var body;
 		var inuse;
@@ -188,26 +187,26 @@ HttpSprinkler.prototype =
 		}
 		
 		this.httpRequest(url, "", "GET", function (error, response, body)
+		{
+			if (error)
+			{
+				this.log("HTTP set power function failed: ", error.message);
+				try 
 				{
-					if (error)
-					{
-						this.log('HTTP set power function failed: %s', error.message);
-						try 
-						{
-							done(new Error("Network failure that must not stop homebridge!"));
-						} catch (err) 
-						{
-							this.log(err.message);
-						}
-					} 
-				else 
+					done(new Error("Network failure that must not stop homebridge!"));
+				} catch (err) 
 				{
-					this.log('HTTP power function succeeded!');
-					this.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
-			
-					callback();
+					this.log(err.message);
 				}
-			})
+			} 
+			else 
+			{
+				this.log("HTTP power function succeeded!");
+				this.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
+			
+				callback();
+			}
+		})
 		
 	},
 	
