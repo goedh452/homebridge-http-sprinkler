@@ -107,14 +107,14 @@ HttpSprinkler.prototype =
 			},
 			function (error, response, responseBody) 
 			{
-			if (callbackMethod) 
-			{
-				callbackMethod(error, response, responseBody)
-			}
-			else 
-			{
-				//this.log("callbackMethod not defined!");
-			}
+				if (callbackMethod) 
+				{
+					callbackMethod(error, response, responseBody)
+				}
+				else 
+				{
+					//this.log("callbackMethod not defined!");
+				}
 			})
 	},
 		
@@ -197,7 +197,6 @@ HttpSprinkler.prototype =
 		})	
 		
 		this.log("HTTP power function succeeded!");
-		this.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
 	},
 	
 	
@@ -244,7 +243,10 @@ HttpSprinkler.prototype =
 					{ callback(null, that.statusOn) })
 					
 					.on('set', this.setPowerState.bind(this));
-				break;
+				
+				this.valveService.getCharacteristic(Characteristic.InUse).updateValue(powerOn);
+				
+			break;
 			default:
 				that.log("Check status: default");
 				this.valveService
