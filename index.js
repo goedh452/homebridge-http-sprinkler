@@ -197,9 +197,7 @@ HttpSprinkler.prototype =
 		})	
 		
 		this.log("HTTP power function succeeded!");
-			
-		// Inuse is set by polling mechanism
-		// this.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
+		this.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
 	},
 	
 	
@@ -210,9 +208,9 @@ HttpSprinkler.prototype =
 		var informationService = new Service.AccessoryInformation();
 
 		informationService
-			.setCharacteristic(Characteristic.Manufacturer, "Sprinkler Manufacturer")
+			.setCharacteristic(Characteristic.Manufacturer, "Sprinkler")
 			.setCharacteristic(Characteristic.Model, "Sprinkler Model")
-			.setCharacteristic(Characteristic.SerialNumber, "Sprinkler Serial Number");
+			.setCharacteristic(Characteristic.SerialNumber, "Sprinkler");
 
 		this.valveService = new Service.Valve(this.name);
 		
@@ -255,7 +253,7 @@ HttpSprinkler.prototype =
 				break;
                 }
 		
-		if (this.useTimer == "hhjkhkj") {
+		if (this.useTimer == "yes") {
 			this.valveService.addCharacteristic(Characteristic.SetDuration)
 					.on('change', (data)=> 
 						{
