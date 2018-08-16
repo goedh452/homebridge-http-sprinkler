@@ -168,8 +168,6 @@ HttpSprinkler.prototype =
 		
 		var that = this;
 		
-		that.log("POWERON: " + powerOn);
-
 		if (!this.onUrl || !this.offUrl) 
 		{
 			this.log("Ignoring request: No power url defined.");
@@ -197,6 +195,8 @@ HttpSprinkler.prototype =
 				that.log("HTTP set status function failed %s", error.message);
 			} 
 		})
+		
+		this.log("INUSE: " + inuse);
 		
 		this.log("HTTP power function succeeded!");
 		this.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
