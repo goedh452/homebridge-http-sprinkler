@@ -196,21 +196,11 @@ HttpSprinkler.prototype =
 			} 
 			else
 			{
-				if (that.valveService)
-				{
-					that.log("HTTP power function succeeded!");
-					that.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
-				}
-				else
-				{ that.log("NOPE"); }
+				that.log("HTTP power function succeeded!");
+				// Inuse is set by polling mechanism
+				// that.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
 			}
-		})
-		
-		this.log("INUSE: " + inuse);
-		
-		
-		
-		
+		})		
 	},
 	
 	
