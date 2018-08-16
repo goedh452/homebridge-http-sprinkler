@@ -194,12 +194,12 @@ HttpSprinkler.prototype =
 			{
 				that.log("HTTP set status function failed %s", error.message);
 			} 
+		})	
+		
+		that.log("HTTP power function succeeded!");
 			
-			that.log("HTTP power function succeeded!");
-			
-			// Inuse is set by polling mechanism
-			// that.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
-		})		
+		// Inuse is set by polling mechanism
+		// that.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
 	},
 	
 	
