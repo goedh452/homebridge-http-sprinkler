@@ -196,7 +196,7 @@ HttpSprinkler.prototype =
 			} 
 		})	
 		
-		that.log("HTTP power function succeeded!");
+		this.log("HTTP power function succeeded!");
 			
 		// Inuse is set by polling mechanism
 		// that.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
