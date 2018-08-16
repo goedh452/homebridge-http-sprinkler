@@ -167,6 +167,8 @@ HttpSprinkler.prototype =
 		var inuse;
 		
 		var that = this;
+		
+		that.log("POWERON: " .. powerOn);
 
 		if (!this.onUrl || !this.offUrl) 
 		{
