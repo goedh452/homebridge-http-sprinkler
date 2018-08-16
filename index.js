@@ -197,6 +197,7 @@ HttpSprinkler.prototype =
 		})	
 		
 		this.log("HTTP power function succeeded!");
+		//this.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
 	},
 	
 	
@@ -243,8 +244,6 @@ HttpSprinkler.prototype =
 					{ callback(null, that.statusOn) })
 					
 					.on('set', this.setPowerState.bind(this));
-				
-				this.valveService.getCharacteristic(Characteristic.InUse).updateValue(powerOn);
 				
 			break;
 			default:
