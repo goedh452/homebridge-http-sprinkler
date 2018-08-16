@@ -255,7 +255,7 @@ HttpSprinkler.prototype =
 				break;
                 }
 		
-		if (this.useTimer == "yes") {
+		if (this.useTimer == "hhjkhkj") {
 			this.valveService.addCharacteristic(Characteristic.SetDuration)
 					.on('change', (data)=> 
 						{
