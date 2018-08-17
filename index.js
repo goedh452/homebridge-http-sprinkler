@@ -197,7 +197,7 @@ HttpSprinkler.prototype =
 //		}.bind(this))	
 		
 		this.log("HTTP power function succeeded!");
-	//	this.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
+		this.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
 		
 	},
 	
@@ -244,7 +244,7 @@ HttpSprinkler.prototype =
 					.on('get', function (callback) 
 					{ callback(null, that.statusOn) })
 					
-					.on('set', this.setPowerState.bind(this));
+					.on('set', this.setPowerState.bind(this))
 				
 			break;
 			default:
@@ -253,9 +253,7 @@ HttpSprinkler.prototype =
 					.getCharacteristic(Characteristic.Active)
 					.on('set', this.setPowerState.bind(this))
 				
-				this.valveService.getCharacteristic(Characteristic.InUse).updateValue(1);
-				
-				break;
+			break;
                 }
 		
 		if (this.useTimer == "yes") {
