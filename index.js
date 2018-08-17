@@ -253,7 +253,7 @@ HttpSprinkler.prototype =
 					.getCharacteristic(Characteristic.Active)
 					.on('set', this.setPowerState.bind(this))
 				
-				this.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
+				this.valveService.getCharacteristic(Characteristic.InUse).updateValue(1);
 				
 				break;
                 }
