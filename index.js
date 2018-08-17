@@ -197,7 +197,7 @@ HttpSprinkler.prototype =
 //		}.bind(this))	
 		
 		this.log("HTTP power function succeeded!");
-		this.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
+	//	this.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
 		
 	},
 	
@@ -215,7 +215,7 @@ HttpSprinkler.prototype =
 
 		this.valveService = new Service.Valve(this.name);
 		
-	//	this.valveService.getCharacteristic(Characteristic.ValveType).updateValue(this.icon);
+		this.valveService.getCharacteristic(Characteristic.ValveType).updateValue(this.icon);
 
 		switch (this.checkStatus)
 		{
