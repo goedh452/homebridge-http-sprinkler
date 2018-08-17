@@ -215,7 +215,7 @@ HttpSprinkler.prototype =
 
 		this.valveService = new Service.Valve(this.name);
 		
-		this.valveService.getCharacteristic(Characteristic.ValveType).updateValue(this.icon);
+	//	this.valveService.getCharacteristic(Characteristic.ValveType).updateValue(this.icon);
 
 		switch (this.checkStatus)
 		{
@@ -252,6 +252,9 @@ HttpSprinkler.prototype =
 				this.valveService
 					.getCharacteristic(Characteristic.Active)
 					.on('set', this.setPowerState.bind(this))
+				
+				this.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
+				
 				break;
                 }
 		
