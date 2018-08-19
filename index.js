@@ -254,7 +254,7 @@ HttpSprinkler.prototype =
 	
 	getDefaultTime: function (defaultTime, callback)
 	{
-		if (!minTime)
+		if (!this.minTime)
 		{
 			this.log('Default time not specified in config; ignore')
 		}
