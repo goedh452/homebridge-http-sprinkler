@@ -28,7 +28,7 @@ function HttpSprinkler(log, config)
 	this.onValue		= config["onValue"]		|| "On";
 	this.offValue		= config["offValue"]		|| "Off";
 	this.useTimer		= config["useTimer"]		|| "no";
-	this.minTime		= config["minTime"]		|| 1;
+	this.defaultTime	= config["defaultTime"]		|| 300;
 	this.httpMethod         = config["httpMethod"]   	|| "GET";
 
 	//realtime polling info
@@ -288,25 +288,18 @@ HttpSprinkler.prototype =
 			{
 				var timer = this.valveService.getCharacteristic(Characteristic.SetDuration).value;
 					
-				if (timer < this.minTime) 
-				{
-					console.log("Selected Valve On Duration of: " 
-					    	+ timer 
-					    	+ " seconds is less than the minimum permitted time, setting On time to: "
-						+ this.minTime
-					    	+ " seconds");
-					timer = this.minTime
-										}
-					this.valveService.getCharacteristic(Characteristic.RemainingDuration)
-						.updateValue(timer);
+				this.valveService.getCharacteristic(Characteristic.RemainingDuration)
+					.updateValue(timer);
 									
-					console.log("Turning Valve "
-					    	+ this.name
-					    	+ " on with Timer set to: "
-					    	+ timer
-					    	+ " seconds");									
+				console.log("Turning Valve "
+				    	+ this.name
+				    	+ " on with Timer set to: "
+				    	+ timer
+				    	+ " seconds");									
 					
-					this.valveService.timer = setTimeout( ()=> {console.log("Valve Timer Expired. Shutting off Valve");
+				this.valveService.timer = setTimeout( ()=> 
+				{
+					console.log("Valve Timer Expired. Shutting off Valve");
 			
 					// use 'setvalue' when the timer ends so it triggers the .on('set'...) event
 					this.valveService.getCharacteristic(Characteristic.Active).setValue(0); 
@@ -378,7 +371,7 @@ HttpSprinkler.prototype =
 			this.valveService.addCharacteristic(Characteristic.RemainingDuration);
 			
 			// Set initial runtime from config
-			this.valveService.getCharacteristic(Characteristic.SetDuration).setValue(300);
+			this.valveService.getCharacteristic(Characteristic.SetDuration).setValue(this.defaultTime);
 			
 			this.valveService.getCharacteristic(Characteristic.SetDuration)
 				.on('change', this.setDurationTime.bind(this));
