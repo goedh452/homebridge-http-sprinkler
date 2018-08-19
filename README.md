@@ -28,7 +28,7 @@ jsonPath         | No          | JSON Path where the status can be found; requir
 onValue          | No          | Value for On when status is checked (default On)
 offValue         | No          | Value for Off when status is checked (default Off)
 useTimer         | No          | Indication if a timer can be used (possible values: yes, no; default no)
-minTime          | No          | Minimum time in seconds the timer can be set (default 1 second)
+defaultTime      | No          | Default time in seconds the timer should be set to; can be changed in the settings page of the accessory, but resets every time homebridge is restarted; hence here the possibility to set a default
 httpMethod       | No          | Method for sending requests (default GET)
 
 
@@ -50,7 +50,7 @@ Configuration sample based on Domoticz JSON API:
                 "onValue": "On",
                 "offValue": "Off",
                 "useTimer": "yes",
-                "minTime": 10,
+                "defaultTime": 900,
                 "httpMethod": "GET"
         }
 ```    
