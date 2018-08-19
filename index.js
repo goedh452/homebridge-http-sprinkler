@@ -378,7 +378,7 @@ HttpSprinkler.prototype =
 			this.valveService.addCharacteristic(Characteristic.RemainingDuration);
 			
 			// Set initial runtime from config
-			this.ValveService.getCharacteristic(Characteristic.SetDuration).setValue(300);
+			this.valveService.getCharacteristic(Characteristic.SetDuration).setValue(300);
 			
 			this.valveService.getCharacteristic(Characteristic.SetDuration)
 				.on('change', this.setDurationTime.bind(this));
