@@ -261,13 +261,12 @@ HttpSprinkler.prototype =
 		informationService
 			.setCharacteristic(Characteristic.Manufacturer, "Sprinkler")
 			.setCharacteristic(Characteristic.Model, "Sprinkler Model")
-			.setCharacteristic(Characteristic.SerialNumber, "Sprinkler")
-			.setCharacteristic(Characteristic.Version, "v1.0");
+			.setCharacteristic(Characteristic.SerialNumber, "Sprinkler");
 
 		this.valveService = new Service.Valve(this.name);
 		
 		this.valveService.getCharacteristic(Characteristic.ValveType).updateValue(this.icon);
-		this.valveService.getCharacteristic(Characteristic.IsConfigured).updateValue(1);
+		this.valveService.getCharacteristic(Characteristic.IsConfigured).updateValue(0);
 
 		switch (this.checkStatus)
 		{
