@@ -168,7 +168,7 @@ HttpSprinkler.prototype =
 		
 		var that = this;
 		
-		this.log("setPowerState function activatied");
+		//this.log("setPowerState function activatied");
 		
 		if (!this.onUrl || !this.offUrl) 
 		{
@@ -213,7 +213,7 @@ HttpSprinkler.prototype =
 		
 		var that = this;
 		
-		this.log("setPowerStatePolling function activatied");
+		//this.log("setPowerStatePolling function activatied");
 		
 		if (!this.onUrl || !this.offUrl) 
 		{
@@ -250,6 +250,19 @@ HttpSprinkler.prototype =
 		callback();
 		
 	},
+	
+	
+	getDefaultTime: function (defaultTime, callback)
+	{
+		if (!minTime)
+		{
+			this.log('Default time not specified in config; ignore')
+		}
+		else
+		{
+			var defaultTime = this.minTime
+		}		
+	}
 	
 
 	getServices: function ()
@@ -309,7 +322,7 @@ HttpSprinkler.prototype =
 		
 		if (this.useTimer == "yes") {
 			this.valveService.addCharacteristic(Characteristic.SetDuration)
-				.on('get', this.minTime)
+				.on('get', this.getDefaultTime.bind(this))
 				.on('change', (data)=> 
 				{
 					console.log("Valve Time Duration Set to: " + data.newValue + " seconds")
