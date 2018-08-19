@@ -168,6 +168,8 @@ HttpSprinkler.prototype =
 		
 		var that = this;
 		
+		this.log("setPowerState function activatied");
+		
 		if (!this.onUrl || !this.offUrl) 
 		{
 			this.log("Ignoring request: No power url defined.");
@@ -197,12 +199,59 @@ HttpSprinkler.prototype =
 		}.bind(this))	
 		
 		this.log("HTTP power function succeeded!");
-		//this.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
+		this.valveService.getCharacteristic(Characteristic.InUse).updateValue(inuse);
 		callback();
 		
 	},
 	
 	
+	setPowerStatePolling: function (powerOn, callback) 
+	{
+		var url;
+		var body;
+		var inuse;
+		
+		var that = this;
+		
+		this.log("setPowerStatePolling function activatied");
+		
+		if (!this.onUrl || !this.offUrl) 
+		{
+			this.log("Ignoring request: No power url defined.");
+			callback(new Error("No power url defined."));
+			return;
+		}
+
+		if (powerOn) 
+		{
+			url = this.onUrl;
+			inuse = 1;
+			this.log("Setting power state to on");
+		} 
+		else 
+		{
+			url = this.offUrl;
+			inuse = 0;
+			this.log("Setting power state to off");
+		}
+		
+		this.httpRequest(url, "", "GET", function (error, response, body)
+		{
+			if (error)
+			{
+				that.log("HTTP set status function failed %s", error.message);
+			} 
+		}.bind(this))	
+		
+		this.log("HTTP power function succeeded!");
+		
+		// InUse characteristic is set with the polling mechanism
+		
+		callback();
+		
+	},
+	
+
 	getServices: function ()
 	{
 		var that = this;
@@ -246,7 +295,7 @@ HttpSprinkler.prototype =
 					.on('get', function (callback) 
 					{ callback(null, that.statusOn) })
 					
-					.on('set', this.setPowerState.bind(this))
+					.on('set', this.setPowerStatePolling.bind(this))
 				
 			break;
 			default:
