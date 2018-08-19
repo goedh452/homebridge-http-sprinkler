@@ -270,7 +270,7 @@ HttpSprinkler.prototype =
 				// use 'setvalue' when the timer ends so it triggers the .on('set'...) event
 				this.valveService.getCharacteristic(Characteristic.Active).setValue(0); 
 			}, (data.newValue *1000));	
-							}
+		}
 	},
 	
 	
@@ -324,7 +324,7 @@ HttpSprinkler.prototype =
 		this.valveService = new Service.Valve(this.name);
 		
 		this.valveService.getCharacteristic(Characteristic.ValveType).updateValue(this.icon);
-		//this.valveService.getCharacteristic(Characteristic.IsConfigured).updateValue(1);
+		this.valveService.addCharacteristic(Characteristic.IsConfigured);
 
 		switch (this.checkStatus)
 		{
