@@ -374,8 +374,8 @@ HttpSprinkler.prototype =
 		
 		if (this.useTimer == "yes") 
 		{
-			this.ValveService.addCharacteristic(Characteristic.SetDuration);
-			this.ValveService.addCharacteristic(Characteristic.RemainingDuration);
+			this.valveService.addCharacteristic(Characteristic.SetDuration);
+			this.valveService.addCharacteristic(Characteristic.RemainingDuration);
 			
 			this.valveService.getCharacteristic(Characteristic.SetDuration)
 				.on('change', this.setDurationTime.bind(this));
