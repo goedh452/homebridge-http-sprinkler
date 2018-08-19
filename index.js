@@ -261,7 +261,7 @@ HttpSprinkler.prototype =
 		informationService
 			.setCharacteristic(Characteristic.Manufacturer, "Sprinkler")
 			.setCharacteristic(Characteristic.Model, "Sprinkler Model")
-			.setCharacteristic(Characteristic.SerialNumber, "Sprinkler");
+			.setCharacteristic(Characteristic.SerialNumber, "Sprinkler")
 			.setCharacteristic(Characteristic.Version, "v1.0");
 
 		this.valveService = new Service.Valve(this.name);
