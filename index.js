@@ -168,7 +168,7 @@ HttpSprinkler.prototype =
 		
 		var that = this;
 		
-		//this.log("setPowerState function activatied");
+		//this.log("setPowerState function activated");
 		
 		if (!this.onUrl || !this.offUrl) 
 		{
@@ -213,7 +213,7 @@ HttpSprinkler.prototype =
 		
 		var that = this;
 		
-		//this.log("setPowerStatePolling function activatied");
+		//this.log("setPowerStatePolling function activated");
 		
 		if (!this.onUrl || !this.offUrl) 
 		{
@@ -266,7 +266,7 @@ HttpSprinkler.prototype =
 		this.valveService = new Service.Valve(this.name);
 		
 		this.valveService.getCharacteristic(Characteristic.ValveType).updateValue(this.icon);
-		//this.valveService.getCharacteristic(Characteristic.IsConfigured).updateValue(0);
+		this.valveService.getCharacteristic(Characteristic.IsConfigured).updateValue(1);
 
 		switch (this.checkStatus)
 		{
