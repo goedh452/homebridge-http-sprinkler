@@ -259,8 +259,10 @@ HttpSprinkler.prototype =
 		{
 			this.valveService.getCharacteristic(Characteristic.RemainingDuration)
 				.updateValue(data.newValue);
-									
-			clearTimeout(this.valveService.timer); // clear any existing timer
+			
+			// clear any existing timer
+			clearTimeout(this.valveService.timer);
+			
 			this.valveService.timer = setTimeout( ()=> 
 			{
 				console.log("Valve Timer Expired. Shutting off Valve");
@@ -268,6 +270,54 @@ HttpSprinkler.prototype =
 				this.valveService.getCharacteristic(Characteristic.Active).setValue(0); 
 			}, (data.newValue *1000));	
 							}
+	},
+	
+	setRemainingTime: function(data, callback)
+	{ 
+		console.log("Valve Remaining Duration changed to: " + data.newValue) });
+
+		this.valveService.getCharacteristic(Characteristic.InUse)
+			.on('change', (data) =>
+			{
+				switch(data.newValue)
+				{
+					case 0:
+					{
+						this.valveService.getCharacteristic(Characteristic.RemainingDuration).updateValue(0);
+						clearTimeout(this.valveService.timer); // clear the timer if it was used!
+						break;
+					}
+					case 1:
+					{
+						var timer = this.valveService.getCharacteristic(Characteristic.SetDuration).value;
+							
+						if (timer < this.minTime) 
+						{
+							console.log("Selected Valve On Duration of: " 
+							    	+ timer 
+							    	+ " seconds is less than the minimum permitted time, setting On time to: "
+								+ this.minTime
+							    	+ " seconds");
+							timer = this.minTime
+										}
+							this.valveService.getCharacteristic(Characteristic.RemainingDuration)
+								.updateValue(timer);
+									
+							console.log("Turning Valve "
+							    	+ this.name
+							    	+ " on with Timer set to: "
+							    	+ timer
+							    	+ " seconds");									
+							this.valveService.timer = setTimeout( ()=> {
+								console.log("Valve Timer Expired. Shutting off Valve");
+								// use 'setvalue' when the timer ends so it triggers the .on('set'...) event
+								this.valveService.getCharacteristic(Characteristic.Active).setValue(0); 
+							}, (timer *1000));
+							break;
+						}
+					}
+				}
+			}
 	},
 	
 	
@@ -332,50 +382,8 @@ HttpSprinkler.prototype =
 				.on('change', this.setDurationTime.bind(this));
 
 			this.valveService.addCharacteristic(Characteristic.RemainingDuration)
-				.on('change', (data) => { console.log("Valve Remaining Duration changed to: " + data.newValue) });
-
-			this.valveService.getCharacteristic(Characteristic.InUse)
-				.on('change', (data) =>
-				{
-					switch(data.newValue)
-					{
-						case 0:
-						{
-							this.valveService.getCharacteristic(Characteristic.RemainingDuration).updateValue(0);
-							clearTimeout(this.valveService.timer); // clear the timer if it was used!
-							break;
-						}
-						case 1:
-						{
-							var timer = this.valveService.getCharacteristic(Characteristic.SetDuration).value;
-							
-							if (timer < this.minTime) 
-							{
-								console.log("Selected Valve On Duration of: " 
-								    	+ timer 
-								    	+ " seconds is less than the minimum permitted time, setting On time to: "
-									+ this.minTime
-								    	+ " seconds");
-								timer = this.minTime
-										}
-								this.valveService.getCharacteristic(Characteristic.RemainingDuration)
-									.updateValue(timer);
-									
-								console.log("Turning Valve "
-								    	+ this.name
-								    	+ " on with Timer set to: "
-								    	+ timer
-								    	+ " seconds");									
-								this.valveService.timer = setTimeout( ()=> {
-									console.log("Valve Timer Expired. Shutting off Valve");
-									// use 'setvalue' when the timer ends so it triggers the .on('set'...) event
-									this.valveService.getCharacteristic(Characteristic.Active).setValue(0); 
-								}, (timer *1000));
-								break;
-							}
-						}
-				}); // end .on('change' ...
-			} // end if(this.useTimer)
+				.on('change', this.setRemaingingTime.bind(this));
+		}
 		
 		return [this.valveService];
 	}
