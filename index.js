@@ -252,19 +252,6 @@ HttpSprinkler.prototype =
 	},
 	
 	
-	getDefaultTime: function (defaultTime, callback)
-	{
-		if (!this.minTime)
-		{
-			this.log('Default time not specified in config; ignore')
-		}
-		else
-		{
-			var defaultTime = this.minTime
-		}		
-	},
-	
-
 	getServices: function ()
 	{
 		var that = this;
@@ -322,7 +309,6 @@ HttpSprinkler.prototype =
 		
 		if (this.useTimer == "yes") {
 			this.valveService.addCharacteristic(Characteristic.SetDuration)
-				.on('get', this.getDefaultTime.bind(this))
 				.on('change', (data)=> 
 				{
 					console.log("Valve Time Duration Set to: " + data.newValue + " seconds")
