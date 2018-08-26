@@ -1,15 +1,13 @@
 # homebridge-http-sprinkler
 A switch plugin for homebridge (https://github.com/nfarina/homebridge) which integrates with HTTP(S) APIs.
 
-Based on homebridge-http-switch from vectronic (https://github.com/vectronic/homebridge-http-switch)
-
 A plugin for sprinklers that can be controlled with an API.
 
 
 # Installation
 
 1. Install homebridge using: `npm install -g homebridge`
-2. Install this plugin: `npm install -g git+https://github.com/goedh452/homebridge-http-sprinkler.git`
+2. Install this plugin: `npm install -g homebridge-http-sprinkler`
 3. Update your `config.json` configuration file
 
 # Configuration
