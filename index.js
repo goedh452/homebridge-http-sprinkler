@@ -71,7 +71,7 @@ function HttpSprinkler(log, config)
 				var status = eval("json." + that.jsonPath);
 				var statusOn = 0;
 				
-				if (status == that.onValue) { statusOn = 1; }
+				if (status == that.onValue) {statusOn = 1; }
 				if (status == that.offValue) { statusOn = 0; }
 			} 
           
@@ -82,8 +82,8 @@ function HttpSprinkler(log, config)
 				that.valveService.getCharacteristic(Characteristic.Active)
 					.updateValue(statusOn);
 		   
-				that.valveService.getCharacteristic(Characteristic.InUse)
-					.updateValue(statusOn);
+				//that.valveService.getCharacteristic(Characteristic.InUse)
+				//	.updateValue(statusOn);
 			}
 
 			that.enableSet = true;
