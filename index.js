@@ -71,19 +71,27 @@ function HttpSprinkler(log, config)
 				var status = eval("json." + that.jsonPath);
 				var statusOn = 0;
 				
-				if (status == that.onValue) {statusOn = 1; }
-				if (status == that.offValue) { statusOn = 0; }
-			} 
-          
-			that.log("State is currently:", statusOn);
- 
-			if (that.valveService) 
-			{
-				that.valveService.getCharacteristic(Characteristic.Active)
-					.updateValue(statusOn);
+				if (status == that.onValue)
+				{
+					that.log("State is currently: ON");
+					
+					that.valveService.getCharacteristic(Characteristic.Active)
+					.updateValue(1);
 		   
-				//that.valveService.getCharacteristic(Characteristic.InUse)
-				//	.updateValue(statusOn);
+					that.valveService.getCharacteristic(Characteristic.InUse)
+					.updateValue(1);
+				}
+				
+				if (status == that.offValue)
+				{
+					that.log("State is currently: ON");
+					
+					that.valveService.getCharacteristic(Characteristic.InUse)
+					.updateValue(0);
+					
+					that.valveService.getCharacteristic(Characteristic.Active)
+					.updateValue(0);
+				}
 			}
 
 			that.enableSet = true;
