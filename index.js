@@ -88,7 +88,7 @@ function HttpSprinkler(log, config)
 				that.log("ON VALUE: " + that.onValue);
 				that.log("OFF VALUE: " + that.offValue);
 				that.log("JSON PATH: " + ("json." + that.jsonPath));
-				that.log("JSON: " + json);
+				that.log("JSON: " + responseBody);
 				
 				if (status == that.onValue)
 				{
