@@ -44,9 +44,6 @@ function HttpSprinkler(log, config)
 			{
 			that.httpRequest(powerurl, "", "GET", function (error, response, body)
 				{
-				
-					that.log("FUNCTION: httpRequest polling");
-				
 					if (error)
 					{
 						that.log('HTTP get status function failed: %s', error.message);
@@ -72,7 +69,6 @@ function HttpSprinkler(log, config)
 			{
 				var json = JSON.parse(responseBody);
 				var status = eval("json." + that.jsonPath);
-				var statusOn = 0;
 				
 				if (status == that.onValue)
 				{
