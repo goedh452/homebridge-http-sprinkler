@@ -30,7 +30,22 @@ function HttpSprinkler(log, config)
 	this.useTimer		= config["useTimer"]		|| "no";
 	this.defaultTime	= config["defaultTime"]		|| 300;
 	this.httpMethod         = config["httpMethod"]   	|| "GET";
-
+	
+	//Spool config to log
+	this.log("NAME: " + this.name);
+	this.log("ICON: " + this.icon);
+	this.log("ON URL: " + this.onUrl);
+	this.log("OFF URL: " + this.offUrl);
+	this.log("CHECKSTATUS: " + this.checkStatus);
+	this.log("POLLINGINTERVAL: " + this.pollingInterval);
+	this.log("STATUS URL: " + this.statusUrl);
+	this.log("JSON PATH: " + this.jsonPath);
+	this.log("ON VALUE: " + this.onValue);
+	this.log("OFF VALUE: " + this.offValue);
+	this.log("USE TIMER: " + this.useTimer);
+	this.log("DEFAULT TIME: " + this.defaultTime);
+	this.log("HTTP MEDTHOD: " + this.httpMethod);
+	
 	//realtime polling info
 	this.statusOn = false;
 	//this.enableSet = true;
