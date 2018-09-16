@@ -33,7 +33,7 @@ function HttpSprinkler(log, config)
 
 	//realtime polling info
 	this.statusOn = false;
-	this.enableSet = true;
+	//this.enableSet = true;
 	var that = this;
 
 	// Status Polling
@@ -70,6 +70,11 @@ function HttpSprinkler(log, config)
 				var json = JSON.parse(responseBody);
 				var status = eval("json." + that.jsonPath);
 				
+				that.log("ON VALUE: " + that.onValue);
+				that.log("OFF VALUE: " + that.offValue);
+				that.loh("JSON PATH: " + ("json." + that.jsonPath));
+				that.log("JSON: " + json);
+				
 				if (status == that.onValue)
 				{
 					that.log("State is currently: ON");
@@ -93,7 +98,7 @@ function HttpSprinkler(log, config)
 				}
 			}
 
-			that.enableSet = true;
+			//that.enableSet = true;
 		});
 	}
 }
