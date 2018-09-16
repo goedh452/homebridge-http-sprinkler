@@ -44,6 +44,9 @@ function HttpSprinkler(log, config)
 			{
 			that.httpRequest(powerurl, "", "GET", function (error, response, body)
 				{
+				
+					that.log("FUNCTION: httpRequest polling");
+				
 					if (error)
 					{
 						that.log('HTTP get status function failed: %s', error.message);
@@ -107,6 +110,8 @@ HttpSprinkler.prototype =
 	{
 		var callbackMethod = callback;
 		
+		this.log("FUNCTION: httpRequest");
+		
 		request({
 			url: url,
 			body: body,
@@ -129,6 +134,8 @@ HttpSprinkler.prototype =
 
 	getPowerState: function (callback) 
 	{
+		
+		this.log("FUNCTION: getPowerState");
 		
 		if (!this.statusUrl || !this.jsonPath || !this.offValue) 
 		{
@@ -176,7 +183,7 @@ HttpSprinkler.prototype =
 		
 		var that = this;
 		
-		//this.log("setPowerState function activated");
+		this.log("FUNCTION: setPowerState");
 		
 		if (!this.onUrl || !this.offUrl) 
 		{
@@ -221,7 +228,7 @@ HttpSprinkler.prototype =
 		
 		var that = this;
 		
-		//this.log("setPowerStatePolling function activated");
+		this.log("FUNCTION: setPowerStatePolling");
 		
 		if (!this.onUrl || !this.offUrl) 
 		{
@@ -333,6 +340,8 @@ HttpSprinkler.prototype =
 		
 		this.valveService.getCharacteristic(Characteristic.ValveType).updateValue(this.icon);
 		//this.valveService.addCharacteristic(Characteristic.IsConfigured);
+		
+		this.log("FUNCTION: getServices");
 
 		switch (this.checkStatus)
 		{
