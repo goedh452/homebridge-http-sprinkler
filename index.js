@@ -33,7 +33,7 @@ function HttpSprinkler(log, config)
 	
 	this.debuglogs = false
 	
-	if ( debuglogs )
+	if ( this.debuglogs )
 	{
 		//Spool config to log
 		this.log("NAME: " + this.name);
@@ -76,7 +76,7 @@ function HttpSprinkler(log, config)
 					} 
 					else 
 					{
-						if ( debuglogs )
+						if ( that.debuglogs )
 						{
 							that.log("POLLING: no error");
 						}
@@ -89,7 +89,7 @@ function HttpSprinkler(log, config)
 
 		statusemitter.on("statuspoll", function (responseBody) 
 		{
-			if ( debuglogs )
+			if ( that.debuglogs )
 			{
 				that.log("FUNCTION: Statusemitter");
 			}
@@ -99,7 +99,7 @@ function HttpSprinkler(log, config)
 				var json = JSON.parse(responseBody);
 				var status = eval("json." + that.jsonPath);
 				
-				if ( debuglogs )
+				if ( that.debuglogs )
 				{
 					that.log("STATUS: " + status);
 					that.log("ON VALUE: " + that.onValue);
@@ -130,7 +130,7 @@ function HttpSprinkler(log, config)
 					.updateValue(0);
 				}
 			
-				if ( debuglogs )
+				if ( that.debuglogs )
 				{	
 					that.log("FUNCTION: statusemiteer after IF");
 				}
@@ -148,7 +148,7 @@ HttpSprinkler.prototype =
 	{
 		var callbackMethod = callback;
 		
-		if ( debuglogs )
+		if ( this.debuglogs )
 		{
 			this.log("FUNCTION: httpRequest");
 		}
@@ -175,7 +175,7 @@ HttpSprinkler.prototype =
 
 	getPowerState: function (callback) 
 	{
-		if ( debuglogs )
+		if ( this.debuglogs )
 		{
 			this.log("FUNCTION: getPowerState");
 		}
@@ -226,7 +226,7 @@ HttpSprinkler.prototype =
 		
 		var that = this;
 		
-		if ( debuglogs )
+		if ( this.debuglogs )
 		{
 			this.log("FUNCTION: setPowerState");
 		}
@@ -274,7 +274,7 @@ HttpSprinkler.prototype =
 		
 		var that = this;
 		
-		if ( debuglogs )
+		if ( this.debuglogs )
 		{
 			this.log("FUNCTION: setPowerStatePolling");
 		}
