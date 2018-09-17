@@ -31,7 +31,7 @@ function HttpSprinkler(log, config)
 	this.defaultTime	= config["defaultTime"]		|| 300;
 	this.httpMethod         = config["httpMethod"]   	|| "GET";
 	
-	var debuglogs = false
+	this.debuglogs = false
 	
 	if ( debuglogs )
 	{
