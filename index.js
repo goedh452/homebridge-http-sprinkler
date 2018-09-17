@@ -81,6 +81,7 @@ function HttpSprinkler(log, config)
 							that.log("POLLING: no error");
 						}
 						
+						that.log("BODY: " + body);
 						done(null, body);
 					}
 			})
