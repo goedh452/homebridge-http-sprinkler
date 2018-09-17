@@ -84,7 +84,7 @@ function HttpSprinkler(log, config)
 						done(null, body);
 					}
 			})
-		}, { interval: that.pollingInterval, pollEventName: "statuspoll" });
+		}, { interval: that.pollingInterval, eventName: "statuspoll" });
 
 
 		statusemitter.on("statuspoll", function (responseBody) 
