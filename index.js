@@ -31,7 +31,7 @@ function HttpSprinkler(log, config)
 	this.defaultTime	= config["defaultTime"]		|| 300;
 	this.httpMethod         = config["httpMethod"]   	|| "GET";
 	
-	var debuglogs = true
+	var debuglogs = false
 	
 	if ( debuglogs )
 	{
@@ -74,30 +74,39 @@ function HttpSprinkler(log, config)
 							that.log(err.message);
 						}
 					} 
-				else 
-				{
-					that.log("POLLING: no error");
-					done(null, body);
-				}
+					else 
+					{
+						if ( debuglogs )
+						{
+							that.log("POLLING: no error");
+						}
+						
+						done(null, body);
+					}
 			})
 		}, { longpolling: true, interval: that.pollingInterval, longpollEventName: "statuspoll" });
 
 
 		statusemitter.on("statuspoll", function (responseBody) 
 		{
-			that.log("FUNCTION: Statusemitter");
+			if ( debuglogs )
+			{
+				that.log("FUNCTION: Statusemitter");
+			}
 			
 			if (that.onValue && that.offValue) 
 			{
 				var json = JSON.parse(responseBody);
 				var status = eval("json." + that.jsonPath);
 				
-				that.log("STATUS: " + status);
-				that.log("ON VALUE: " + that.onValue);
-				that.log("OFF VALUE: " + that.offValue);
-				that.log("JSON PATH: " + ("json." + that.jsonPath));
-				that.log("JSON: " + responseBody);
-				
+				if ( debuglogs )
+				{
+					that.log("STATUS: " + status);
+					that.log("ON VALUE: " + that.onValue);
+					that.log("OFF VALUE: " + that.offValue);
+					that.log("JSON PATH: " + ("json." + that.jsonPath));
+					that.log("JSON: " + responseBody);
+				}
 				
 				if (status == that.onValue)
 				{
@@ -120,8 +129,11 @@ function HttpSprinkler(log, config)
 					that.valveService.getCharacteristic(Characteristic.Active)
 					.updateValue(0);
 				}
-				
-			that.log("FUNCTION: statusemiteer after IF");
+			
+				if ( debuglogs )
+				{	
+					that.log("FUNCTION: statusemiteer after IF");
+				}
 			}
 
 		});
@@ -136,7 +148,10 @@ HttpSprinkler.prototype =
 	{
 		var callbackMethod = callback;
 		
-		this.log("FUNCTION: httpRequest");
+		if ( debuglogs )
+		{
+			this.log("FUNCTION: httpRequest");
+		}
 		
 		request({
 			url: url,
@@ -160,8 +175,10 @@ HttpSprinkler.prototype =
 
 	getPowerState: function (callback) 
 	{
-		
-		this.log("FUNCTION: getPowerState");
+		if ( debuglogs )
+		{
+			this.log("FUNCTION: getPowerState");
+		}
 		
 		if (!this.statusUrl || !this.jsonPath || !this.offValue) 
 		{
@@ -209,7 +226,10 @@ HttpSprinkler.prototype =
 		
 		var that = this;
 		
-		this.log("FUNCTION: setPowerState");
+		if ( debuglogs )
+		{
+			this.log("FUNCTION: setPowerState");
+		}
 		
 		if (!this.onUrl || !this.offUrl) 
 		{
@@ -254,7 +274,10 @@ HttpSprinkler.prototype =
 		
 		var that = this;
 		
-		this.log("FUNCTION: setPowerStatePolling");
+		if ( debuglogs )
+		{
+			this.log("FUNCTION: setPowerStatePolling");
+		}
 		
 		if (!this.onUrl || !this.offUrl) 
 		{
