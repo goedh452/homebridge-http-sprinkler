@@ -81,11 +81,10 @@ function HttpSprinkler(log, config)
 							that.log("POLLING: no error");
 						}
 						
-						that.log("BODY: " + body);
 						done(null, body);
 					}
 			})
-		}, { longpolling: true, interval: that.pollingInterval, longpollEventName: "statuspoll" });
+		}, { interval: that.pollingInterval, pollEventName: "statuspoll" });
 
 
 		statusemitter.on("statuspoll", function (responseBody) 
