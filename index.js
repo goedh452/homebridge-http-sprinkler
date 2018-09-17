@@ -48,7 +48,6 @@ function HttpSprinkler(log, config)
 	
 	//realtime polling info
 	this.statusOn = false;
-	//this.enableSet = true;
 	var that = this;
 
 	// Status Polling
@@ -72,6 +71,7 @@ function HttpSprinkler(log, config)
 					} 
 				else 
 				{
+					that.log("POLLING: no error");
 					done(null, body);
 				}
 			})
@@ -80,15 +80,19 @@ function HttpSprinkler(log, config)
 
 		statusemitter.on("statuspoll", function (responseBody) 
 		{
+			that.log("FUNCTION: Statusemitter");
+			
 			if (that.onValue && that.offValue) 
 			{
 				var json = JSON.parse(responseBody);
 				var status = eval("json." + that.jsonPath);
 				
+				that.log("STATUS: " + status);
 				that.log("ON VALUE: " + that.onValue);
 				that.log("OFF VALUE: " + that.offValue);
 				that.log("JSON PATH: " + ("json." + that.jsonPath));
 				that.log("JSON: " + responseBody);
+				
 				
 				if (status == that.onValue)
 				{
@@ -111,9 +115,10 @@ function HttpSprinkler(log, config)
 					that.valveService.getCharacteristic(Characteristic.Active)
 					.updateValue(0);
 				}
+				
+			that.log("FUNCTION: statusemiteer after IF");
 			}
 
-			//that.enableSet = true;
 		});
 	}
 }
