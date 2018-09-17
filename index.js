@@ -112,8 +112,8 @@ function HttpSprinkler(log, config)
 				{
 					that.log("State is currently: ON");
 					
-					//that.valveService.getCharacteristic(Characteristic.Active)
-					//.updateValue(1);
+					that.valveService.getCharacteristic(Characteristic.Active)
+					.updateValue(1);
 		   
 					that.valveService.getCharacteristic(Characteristic.InUse)
 					.updateValue(1);
