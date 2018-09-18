@@ -31,7 +31,7 @@ function HttpSprinkler(log, config)
 	this.defaultTime	= config["defaultTime"]		|| 300;
 	this.httpMethod         = config["httpMethod"]   	|| "GET";
 	
-	this.debuglogs = false
+	this.debuglogs          = config["debugON"]             || false;
 	
 	if ( this.debuglogs )
 	{
@@ -110,7 +110,10 @@ function HttpSprinkler(log, config)
 				
 				if (status == that.onValue)
 				{
+					if ( that.debuglogs )
+					{
 					that.log("State is currently: ON");
+					}
 					
 					that.valveService.getCharacteristic(Characteristic.Active)
 					.updateValue(1);
@@ -121,8 +124,11 @@ function HttpSprinkler(log, config)
 				
 				if (status == that.offValue)
 				{
+					if ( that.debuglogs )
+					{
 					that.log("State is currently: OFF");
-					
+					}
+						
 					that.valveService.getCharacteristic(Characteristic.InUse)
 					.updateValue(0);
 					
