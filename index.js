@@ -31,26 +31,7 @@ function HttpSprinkler(log, config)
 	this.defaultTime	= config["defaultTime"]		|| 300;
 	this.httpMethod         = config["httpMethod"]   	|| "GET";
 	
-	this.debuglogs = false
-	
-	if ( this.debuglogs )
-	{
-		//Spool config to log
-		this.log("NAME: " + this.name);
-		this.log("ICON: " + this.icon);
-		this.log("ON URL: " + this.onUrl);
-		this.log("OFF URL: " + this.offUrl);
-		this.log("CHECKSTATUS: " + this.checkStatus);
-		this.log("POLLINGINTERVAL: " + this.pollingInterval);
-		this.log("STATUS URL: " + this.statusUrl);
-		this.log("JSON PATH: " + this.jsonPath);
-		this.log("ON VALUE: " + this.onValue);
-		this.log("OFF VALUE: " + this.offValue);
-		this.log("USE TIMER: " + this.useTimer);
-		this.log("DEFAULT TIME: " + this.defaultTime);
-		this.log("HTTP MEDTHOD: " + this.httpMethod);
-	}
-	
+
 	//realtime polling info
 	this.statusOn = false;
 	var that = this;
@@ -76,11 +57,6 @@ function HttpSprinkler(log, config)
 					} 
 					else 
 					{
-						if ( that.debuglogs )
-						{
-							that.log("POLLING: no error");
-						}
-						
 						done(null, body);
 					}
 			})
@@ -89,28 +65,14 @@ function HttpSprinkler(log, config)
 
 		statusemitter.on("statuspoll", function (responseBody) 
 		{
-			if ( that.debuglogs )
-			{
-				that.log("FUNCTION: Statusemitter");
-			}
-			
 			if (that.onValue && that.offValue) 
 			{
 				var json = JSON.parse(responseBody);
 				var status = eval("json." + that.jsonPath);
 				
-				if ( that.debuglogs )
-				{
-					that.log("STATUS: " + status);
-					that.log("ON VALUE: " + that.onValue);
-					that.log("OFF VALUE: " + that.offValue);
-					that.log("JSON PATH: " + ("json." + that.jsonPath));
-					that.log("JSON: " + responseBody);
-				}
-				
 				if (status == that.onValue)
 				{
-					that.log("State is currently: ON");
+					//that.log("State is currently: ON");
 					
 					that.valveService.getCharacteristic(Characteristic.Active)
 					.updateValue(1);
@@ -121,18 +83,13 @@ function HttpSprinkler(log, config)
 				
 				if (status == that.offValue)
 				{
-					that.log("State is currently: OFF");
+					//that.log("State is currently: OFF");
 					
 					that.valveService.getCharacteristic(Characteristic.InUse)
 					.updateValue(0);
 					
 					that.valveService.getCharacteristic(Characteristic.Active)
 					.updateValue(0);
-				}
-			
-				if ( that.debuglogs )
-				{	
-					that.log("FUNCTION: statusemiteer after IF");
 				}
 			}
 
@@ -147,11 +104,6 @@ HttpSprinkler.prototype =
 	httpRequest: function (url, body, method, callback) 
 	{
 		var callbackMethod = callback;
-		
-		if ( this.debuglogs )
-		{
-			this.log("FUNCTION: httpRequest");
-		}
 		
 		request({
 			url: url,
@@ -175,11 +127,6 @@ HttpSprinkler.prototype =
 
 	getPowerState: function (callback) 
 	{
-		if ( this.debuglogs )
-		{
-			this.log("FUNCTION: getPowerState");
-		}
-		
 		if (!this.statusUrl || !this.jsonPath || !this.offValue) 
 		{
 			this.log("Ignoring request: Missing status properties in config.json.");
@@ -211,7 +158,7 @@ HttpSprinkler.prototype =
 					powerOn = false;
 				}
 				
-				this.log("status received from: " + url, "state is currently: ", powerOn.toString());
+				//this.log("status received from: " + url, "state is currently: ", powerOn.toString());
 				callback(null, powerOn);
 			}
 		}.bind(this));
@@ -225,11 +172,6 @@ HttpSprinkler.prototype =
 		var inuse;
 		
 		var that = this;
-		
-		if ( this.debuglogs )
-		{
-			this.log("FUNCTION: setPowerState");
-		}
 		
 		if (!this.onUrl || !this.offUrl) 
 		{
@@ -274,11 +216,6 @@ HttpSprinkler.prototype =
 		
 		var that = this;
 		
-		if ( this.debuglogs )
-		{
-			this.log("FUNCTION: setPowerStatePolling");
-		}
-		
 		if (!this.onUrl || !this.offUrl) 
 		{
 			this.log("Ignoring request: No power url defined.");
@@ -306,8 +243,6 @@ HttpSprinkler.prototype =
 				that.log("HTTP set status function failed %s", error.message);
 			} 
 		}.bind(this))	
-		
-		this.log("HTTP power function succeeded!");
 		
 		// InUse characteristic is set with the polling mechanism
 		
