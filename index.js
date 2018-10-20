@@ -21,6 +21,7 @@ function HttpSprinkler(log, config)
 	this.icon		= config["icon"]		|| 0
 	this.onUrl              = config["onUrl"];
 	this.offUrl             = config["offUrl"];
+	this.timeout            = config["timeout"]             || 5000;
 	this.checkStatus 	= config["checkStatus"]		|| "no";
 	this.pollingInterval    = config["pollingInterval"]   	|| 3000;
 	this.statusUrl          = config["statusUrl"];
@@ -109,6 +110,7 @@ HttpSprinkler.prototype =
 			url: url,
 			body: body,
 			method: method,
+			timeout: this.timeout,
 			rejectUnauthorized: false
 			},
 			function (error, response, responseBody) 
