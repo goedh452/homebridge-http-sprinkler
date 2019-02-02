@@ -1,7 +1,6 @@
 # homebridge-http-sprinkler
-A switch plugin for [homebridge](https://github.com/nfarina/homebridge) which integrates with HTTP(S) APIs.
 
-A plugin for sprinklers that can be controlled with an API.
+#### Homebridge plugin to control a web-based sprinkler via HTTP(S) APIs.
 
 ## Installation
 
@@ -73,4 +72,5 @@ sudo npm install -g homebridge-http-sprinkler
        "defaultTime": 900,
        "httpMethod": "GET"
      }
+]
 ```    
