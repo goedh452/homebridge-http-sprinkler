@@ -21,7 +21,7 @@ sudo npm install -g homebridge-http-sprinkler
 | `name` | Name to appear in the Home app |
 | `onUrl` | URL to turn on sprinklers |
 | `offUrl` | URL to turn on sprinklers |
-| `icon` _(optional)_ | Icon to be shown in the Home app (`0-3`, Default is `0`) |
+| `icon` _(optional)_ | Icon to be shown in the Home app (`0`, `1`, `2`, `3`; `0` is default) |
 | `timeout` _(optional)_ | Time (in milliseconds) until the accessory will be marked as "Not Responding" if it is unreachable. (5000ms default) |
 | `httpMethod` _(optional)_ | Method for sending requests (`GET` is default) |
 | `checkStatus` _(optional)_ | Whether the status should be checked via the API (`once`, `polling`, `no`; `no` is default) |
