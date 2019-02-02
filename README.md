@@ -3,11 +3,16 @@ A switch plugin for [homebridge](https://github.com/nfarina/homebridge) which in
 
 A plugin for sprinklers that can be controlled with an API.
 
-# Installation
+## Installation
 
-1. Install homebridge using: `npm install -g homebridge`
-2. Install this plugin: `npm install -g homebridge-http-sprinkler`
-3. Update your `config.json` configuration file
+1. Install [homebridge](https://github.com/nfarina/homebridge#installation-details).
+
+2. Install this plugin: 
+```
+sudo npm install -g homebridge-http-sprinkler
+```
+
+3. Update your `config.json` file (See [below](#configuration-examples)).
 
 ## Structure & Interfacing
 
@@ -33,10 +38,10 @@ A plugin for sprinklers that can be controlled with an API.
 
 ## Configuration Examples
 
-### Simple configuration
+#### Simple configuration:
 
 ```json
- "accessories": [
+"accessories": [
      {
        "accessory": "HttpSprinkler",
        "name": "HTTP Sprinkler",
@@ -47,25 +52,25 @@ A plugin for sprinklers that can be controlled with an API.
 ]
 ```
 
-### Sample based on Domoticz JSON API:
+#### Sample based on Domoticz JSON API:
 
- ``` 
+ ```json
 "accessories": [ 
-        {
-                "accessory": "HttpSprinkler",
-                "name": "Sprinkler backyard",
-                "icon": 1,
-                "onUrl": "http://localhost:8080/json.htm?type=command&param=switchlight&idx=135&switchcmd=On",
-                "offUrl": "http://localhost:8080/json.htm?type=command&param=switchlight&idx=135&switchcmd=Off",
-                "timeout": 3000,
-                "checkStatus": "polling",
-                "pollingInterval": 5000,
-                "statusUrl": "http://localhost:8080/json.htm?type=devices&rid=135",
-                "jsonPath": "result[0].Status",
-                "onValue": "On",
-                "offValue": "Off",
-                "useTimer": "yes",
-                "defaultTime": 900,
-                "httpMethod": "GET"
-        }
+     {
+       "accessory": "HttpSprinkler",
+       "name": "Sprinkler backyard",
+       "icon": 1,
+       "onUrl": "http://localhost:8080/json.htm?type=command&param=switchlight&idx=135&switchcmd=On",
+       "offUrl": "http://localhost:8080/json.htm?type=command&param=switchlight&idx=135&switchcmd=Off",
+       "timeout": 3000,
+       "checkStatus": "polling",
+       "pollingInterval": 5000,
+       "statusUrl": "http://localhost:8080/json.htm?type=devices&rid=135",
+       "jsonPath": "result[0].Status",
+       "onValue": "On",
+       "offValue": "Off",
+       "useTimer": "yes",
+       "defaultTime": 900,
+       "httpMethod": "GET"
+     }
 ```    
