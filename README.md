@@ -21,15 +21,15 @@ sudo npm install -g homebridge-http-sprinkler
 | `name` | Name to appear in the Home app |
 | `onUrl` | URL to turn on sprinklers |
 | `offUrl` | URL to turn on sprinklers |
-| `icon` _(optional)_ | Icon to be shown in the Home app (`0`, `1`, `2`, `3`; `0` is default) |
-| `timeout` _(optional)_ | Time (in milliseconds) until the accessory will be marked as "Not Responding" if it is unreachable. (5000ms default) |
+| `icon` _(optional)_ | Icon to be shown in the Home app (`0`, `1`, `2`, `3`) (Default: `0`) |
+| `timeout` _(optional)_ | Time (in milliseconds) until the accessory will be marked as "Not Responding" if it is unreachable. (Default: `5000`) |
 | `httpMethod` _(optional)_ | Method for sending requests (`GET` is default) |
-| `checkStatus` _(optional)_ | Whether the status should be checked via the API (`once`, `polling`, `no`; `no` is default) |
+| `checkStatus` _(optional)_ | Whether the status should be checked via the API (`once`, `polling`, `no`) (Default: `no`) |
 | `pollingInterval` _(optional)_ | If `checkStatus` is set to `polling`, this is the time (in ms) betwwen status checks (3000ms default) |
 | `jsonPath` _(optional)_ | JSON Path where the status can be found; required when `checkStatus` is `once` or `polling` |
-| `onValue` _(optional)_ | Value for On when status is checked (`On` is default) |
-| `offValue` _(optional)_ | Value for Off when status is checked (`Off` is default) |
-| `useTimer` _(optional)_ | Indication if a timer can be used (possible values: `yes`, `no`; `no` is default) |
+| `onValue` _(optional)_ | Value for On when status is checked (Default: `On`) |
+| `offValue` _(optional)_ | Value for Off when status is checked (Default: `Off`) |
+| `useTimer` _(optional)_ | Indication if a timer can be used (`yes` or `no`) (Default: `no`) |
 | `defaultTime` _(optional)_ | Default time (in seconds) the timer should be set to if enabled |
 | `model` _(optional)_ | Appears under "Model" for your accessory in the Home app |
 | `serial` _(optional)_ | Appears under "Serial" for your accessory in the Home app |
