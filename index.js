@@ -50,7 +50,7 @@ function HttpSprinkler(log, config)
 		var powerurl = this.statusUrl;
 		var statusemitter = pollingtoevent(function (done)
 			{
-			that.httpRequest(powerurl, "", "GET", function (error, response, body)
+			that.httpRequest(powerurl, "", this.httpMethod, function (error, response, body)
 				{
 					if (error)
 					{
@@ -153,7 +153,7 @@ HttpSprinkler.prototype =
 
 		var url = this.statusUrl;
 
-		this.httpRequest(url, "", "GET", function (error, response, responseBody)
+		this.httpRequest(url, "", this.httpMethod, function (error, response, responseBody)
 		{
 			if (error)
 			{
@@ -210,7 +210,7 @@ HttpSprinkler.prototype =
 			this.log("Setting power state to off");
 		}
 
-		this.httpRequest(url, "", "GET", function (error, response, body)
+		this.httpRequest(url, "", this.httpMethod, function (error, response, body)
 		{
 			if (error)
 			{
@@ -253,7 +253,7 @@ HttpSprinkler.prototype =
 			this.log("Setting power state to off");
 		}
 
-		this.httpRequest(url, "", "GET", function (error, response, body)
+		this.httpRequest(url, "", this.httpMethod, function (error, response, body)
 		{
 			if (error)
 			{
