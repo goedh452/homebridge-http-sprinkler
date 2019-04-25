@@ -17,27 +17,27 @@ function HttpSprinkler(log, config)
 	this.log = log;
 
 	// Get config info
-	this.name		            = config["name"]          	    || "HTTP Sprinkler";
-	this.icon		            = config["icon"]		            || 0
+	this.name		= config["name"]		|| "HTTP Sprinkler";
+	this.icon		= config["icon"]		|| 0
 
 	this.onUrl              = config["onUrl"];
 	this.offUrl             = config["offUrl"];
-  this.statusUrl          = config["statusUrl"];
+  	this.statusUrl          = config["statusUrl"];
 
-  this.httpMethod         = config["httpMethod"]   	      || "GET";
+  	this.httpMethod         = config["httpMethod"]   	|| "GET";
 	this.timeout            = config["timeout"]             || 5000;
 	this.pollingInterval    = config["pollingInterval"]   	|| 3000;
-  this.checkStatus 	      = config["checkStatus"]		      || "no";
+ 	 this.checkStatus 	= config["checkStatus"]		|| "no";
 
-	this.jsonPath		        = config["jsonPath"];
-	this.onValue		        = config["onValue"]		          || "On";
-	this.offValue		        = config["offValue"]		        || "Off";
-	this.useTimer		        = config["useTimer"]		        || "no";
-	this.defaultTime	      = config["defaultTime"]		      || 300;
+	this.jsonPath		= config["jsonPath"];
+	this.onValue		= config["onValue"]		|| "On";
+	this.offValue		= config["offValue"]		|| "Off";
+	this.useTimer		= config["useTimer"]		|| "no";
+	this.defaultTime	= config["defaultTime"]		|| 300;
 
-  this.manufacturer       = config["manufacturer"]        || "HTTP Manufacturer";
-  this.model              = config["model"]               || "homebridge-http-sprinkler";
-  this.serial             = config["serial"]              || "HTTP Serial Number";
+  	this.manufacturer       = config["manufacturer"]        || "HTTP Sprinkler";
+  	this.model              = config["model"]               || "homebridge-http-sprinkler";
+  	this.serial             = config["serial"]              || "HTTP Serial Number";
 
 
 	//realtime polling info
