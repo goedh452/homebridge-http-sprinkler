@@ -77,7 +77,7 @@ function HttpSprinkler(log, config)
 			{
 				that.log("Additional logging");
 				
-				var jsonTemp = "{""POWER2"":""OFF""}""
+				var jsonTemp = "{\"POWER2\":\"OFF\"}"
 				
 				that.log(jsonTemp);
 				
