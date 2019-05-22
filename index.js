@@ -78,6 +78,7 @@ function HttpSprinkler(log, config)
 				that.log("Additional logging");
 				
 				var jsonTemp = "{\"POWER2\":\"OFF\"}"
+				var pathTemp = "POWER2"
 				
 				that.log(jsonTemp);
 				
@@ -85,7 +86,8 @@ function HttpSprinkler(log, config)
 				var json = JSON.parse(jsonTemp);
 				that.log(json);
 				
-				var status = eval("json." + that.jsonPath);
+				//var status = eval("json." + that.jsonPath);
+				var status = eval("json." + pathTemp);
 				that.log(status);
 				that.log(that.onValue);
 				that.log(that.offValue);
