@@ -87,7 +87,7 @@ function HttpSprinkler(log, config)
 				that.log(json);
 				
 				//var status = eval("json." + that.jsonPath);
-				var status = eval("json." + pathTemp);
+				var status = "json." + pathTemp;
 				that.log(status);
 				that.log(that.onValue);
 				that.log(that.offValue);
