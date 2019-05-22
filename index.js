@@ -27,7 +27,7 @@ function HttpSprinkler(log, config)
   	this.httpMethod         = config["httpMethod"]   	|| "GET";
 	this.timeout            = config["timeout"]             || 5000;
 	this.pollingInterval    = config["pollingInterval"]   	|| 3000;
- 	 this.checkStatus 	= config["checkStatus"]		|| "no";
+ 	this.checkStatus 	= config["checkStatus"]		|| "no";
 
 	this.jsonPath		= config["jsonPath"];
 	this.onValue		= config["onValue"]		|| "On";
@@ -87,7 +87,7 @@ function HttpSprinkler(log, config)
 				that.log(json);
 				
 				//var status = eval("json." + that.jsonPath);
-				var status = "json." + pathTemp;
+				var status = JSON.parse("json." + pathTemp);
 				that.log(status);
 				that.log(that.onValue);
 				that.log(that.offValue);
