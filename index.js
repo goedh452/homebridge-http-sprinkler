@@ -76,9 +76,13 @@ function HttpSprinkler(log, config)
 			if (that.onValue && that.offValue)
 			{
 				that.log("Additional logging");
-				that.log(responseBody);
 				
-				var json = JSON.parse(responseBody);
+				var jsonTemp = "{""POWER2"":""OFF""}""
+				
+				that.log(jsonTemp);
+				
+				//var json = JSON.parse(responseBody);
+				var json = JSON.parse(jsonTemp);
 				that.log(json);
 				
 				var status = eval("json." + that.jsonPath);
