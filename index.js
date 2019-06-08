@@ -75,27 +75,11 @@ function HttpSprinkler(log, config)
 		{
 			if (that.onValue && that.offValue)
 			{
-				that.log("Additional logging");
-				
-				var jsonTemp = "{\"POWER2\":\"OFF\"}"
-				var pathTemp = "POWER2"
-				
-				that.log(jsonTemp);
-				
-				//var json = JSON.parse(responseBody);
-				var json = JSON.parse(jsonTemp);
-				that.log(json);
-				
-				//var status = eval("json." + that.jsonPath);
-				var status = JSON.parse("json." + pathTemp);
-				that.log(status);
-				that.log(that.onValue);
-				that.log(that.offValue);
+				var json = JSON.parse(responseBody);
+				var status = eval("json." + that.jsonPath);
 
 				if (status == that.onValue)
 				{
-					that.log("State is currently: ON");
-
 					that.valveService.getCharacteristic(Characteristic.Active)
 					.updateValue(1);
 
@@ -105,8 +89,6 @@ function HttpSprinkler(log, config)
 
 				if (status == that.offValue)
 				{
-					that.log("State is currently: OFF");
-
 					that.valveService.getCharacteristic(Characteristic.InUse)
 					.updateValue(0);
 
