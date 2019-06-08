@@ -32,9 +32,9 @@ function HttpSprinkler(log, config) {
   this.useTimer = config.useTimer || "no";
   this.defaultTime = config.defaultTime || 300;
 
-  this.manufacturer = config.manufacturer || "HTTP Sprinkler";
+  this.manufacturer = config.manufacturer || "goedh452";
   this.model = config.model || "homebridge-http-sprinkler";
-  this.serial = config.serial || "HTTP Serial Number";
+  this.serial = config.serial || "homebridge-http-sprinkler";
 
   //realtime polling info
   this.statusOn = false;
