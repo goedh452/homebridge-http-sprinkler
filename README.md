@@ -22,7 +22,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-ba
 | `onUrl` | URL to turn on sprinklers | N/A |
 | `offUrl` | URL to turn on sprinklers | N/A |
 
-### Optional
+### Optional fields
 | Key | Description | Default |
 | --- | --- | --- |
 | `icon` _(optional)_ | Icon to be shown in the Home app (`0`, `1`, `2`, `3`) | `0` |
@@ -34,8 +34,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-ba
 | `defaultTime` _(optional)_ | Default time (in seconds) the timer should be set to if enabled | `300` |
 | `pollingInterval` _(optional)_ | If `checkStatus` is set to `polling`, this is the time (in ms) betwwen status checks| `3000` |
 
-### Additional options
-
+### Additional fields
 | Key | Description | Default |
 | --- | --- | --- |
 | `timeout` _(optional)_ | Time (in milliseconds) until the accessory will be marked as _Not Responding_ if it is unreachable | `5000` |
