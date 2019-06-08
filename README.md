@@ -4,7 +4,7 @@
 
 ## Description
 
-This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-based sprinkler/valve to Apple's [HomeKit](http://www.apple.com/ios/home/) and allows you to control it via HTTP requests with extra functionality like duration timers
+This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-based sprinkler/valve to Apple's [HomeKit](http://www.apple.com/ios/home/) and allows you to control it via HTTP requests.
 
 ## Installation
 
