@@ -17,7 +17,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-ba
 ### Core
 | Key | Description | Default |
 | --- | --- | --- |
-| `accessory` | Must be `Boiler` | N/A |
+| `accessory` | Must be `HttpSprinkler` | N/A |
 | `name` | Name to appear in the Home app | N/A |
 | `onUrl` | URL to turn on sprinklers | N/A |
 | `offUrl` | URL to turn on sprinklers | N/A |
