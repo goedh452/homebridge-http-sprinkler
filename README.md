@@ -21,11 +21,11 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-ba
 | `name` | Name to appear in the Home app | N/A |
 | `onUrl` | URL to turn on sprinklers | N/A |
 | `offUrl` | URL to turn on sprinklers | N/A |
-| `icon` _(optional)_ | Icon to be shown in the Home app (`0`, `1`, `2`, `3`) | `0` |
 
 ### Optional fields
 | Key | Description | Default |
 | --- | --- | --- |
+| `icon` _(optional)_ | Icon to be shown in the Home app (`0`, `1`, `2`, `3`) | `0` |
 | `checkStatus` _(optional)_ | Whether the status should be checked via the API (`once`, `polling`, `no`) | `no` |
 | `jsonPath` _(optional)_ | JSON Path where the status can be found - required when `checkStatus` is `once` or `polling` | N/A |
 | `onValue` _(optional)_ | Value for On when status is checked | `On` |
