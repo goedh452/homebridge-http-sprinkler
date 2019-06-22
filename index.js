@@ -246,10 +246,10 @@ HttpSprinkler.prototype = {
           this.valveService.getCharacteristic(Characteristic.RemainingDuration)
           .updateValue(timer);
 
-          this.console("Turning Valve " + this.name + " on with Timer set to: " + timer + " seconds");
+          console.log("Turning Valve " + this.name + " on with Timer set to: " + timer + " seconds");
 
           this.valveService.timer = setTimeout(() => {
-            this.console("Valve Timer Expired. Shutting off Valve");
+            console.log("Valve Timer Expired. Shutting off Valve");
 
             // use 'setvalue' when the timer ends so it triggers the .on('set'...) event
             this.valveService.getCharacteristic(Characteristic.Active).setValue(0);
