@@ -328,7 +328,7 @@ HttpSprinkler.prototype = {
 
       this.valveService.getCharacteristic(Characteristic.RemainingDuration)
         .on('change', (data) => {
-          this.console("Valve Remaining Duration changed to: " + data.newValue)
+          console.log("Valve Remaining Duration changed to: " + data.newValue)
         })
 
       this.valveService.getCharacteristic(Characteristic.InUse)
