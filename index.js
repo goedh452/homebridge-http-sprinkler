@@ -214,7 +214,7 @@ HttpSprinkler.prototype = {
 
 
   setDurationTime: function(data, callback) {
-    console.log("Valve Time Duration Set to: " + data.newValue + " seconds")
+    this.log("Valve Time Duration Set to: " + data.newValue + " seconds")
 
     if (this.valveService.getCharacteristic(Characteristic.InUse).value) {
       this.valveService.getCharacteristic(Characteristic.RemainingDuration).updateValue(data.newValue);
@@ -223,7 +223,7 @@ HttpSprinkler.prototype = {
       clearTimeout(this.valveService.timer);
 
       this.valveService.timer = setTimeout(() => {
-        console.log("Valve Timer Expired. Shutting off Valve");
+        this.log("Valve Timer Expired. Shutting off Valve");
         // use 'setvalue' when the timer ends so it triggers the .on('set'...) event
         this.valveService.getCharacteristic(Characteristic.Active).setValue(0);
       }, (data.newValue * 1000));
@@ -246,10 +246,10 @@ HttpSprinkler.prototype = {
           this.valveService.getCharacteristic(Characteristic.RemainingDuration)
           .updateValue(timer);
 
-          console.log("Turning Valve " + this.name + " on with Timer set to: " + timer + " seconds");
+          this.log("Turning Valve " + this.name + " on with Timer set to: " + timer + " seconds");
 
           this.valveService.timer = setTimeout(() => {
-            console.log("Valve Timer Expired. Shutting off Valve");
+            this.log("Valve Timer Expired. Shutting off Valve");
 
             // use 'setvalue' when the timer ends so it triggers the .on('set'...) event
             this.valveService.getCharacteristic(Characteristic.Active).setValue(0);
@@ -328,7 +328,7 @@ HttpSprinkler.prototype = {
 
       this.valveService.getCharacteristic(Characteristic.RemainingDuration)
         .on('change', (data) => {
-          console.log("Valve Remaining Duration changed to: " + data.newValue)
+          this.log("Valve Remaining Duration changed to: " + data.newValue)
         })
 
       this.valveService.getCharacteristic(Characteristic.InUse)
