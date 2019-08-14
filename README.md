@@ -20,7 +20,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-ba
 | `accessory` | Must be `HttpSprinkler` | N/A |
 | `name` | Name to appear in the Home app | N/A |
 | `onUrl` | URL to turn on sprinklers | N/A |
-| `offUrl` | URL to turn on sprinklers | N/A |
+| `offUrl` | URL to turn off sprinklers | N/A |
 
 ### Optional fields
 | Key | Description | Default |
