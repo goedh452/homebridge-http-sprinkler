@@ -32,7 +32,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-ba
 | `offValue` _(optional)_ | Value for Off when status is checked | `Off` |
 | `useTimer` _(optional)_ | Indication if a timer can be used (`yes` or `no`) | `no` |
 | `defaultTime` _(optional)_ | Default time (in seconds) the timer should be set to if enabled | `300` |
-| `pollingInterval` _(optional)_ | If `checkStatus` is set to `polling`, this is the time (in ms) betwwen status checks| `3000` |
+| `pollingInterval` _(optional)_ | If `checkStatus` is set to `polling`, this is the time (in ms) between status checks| `3000` |
 
 ### Additional fields
 | Key | Description | Default |
