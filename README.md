@@ -33,6 +33,7 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-ba
 | `useTimer` _(optional)_ | Indication if a timer can be used (`yes` or `no`) | `no` |
 | `defaultTime` _(optional)_ | Default time (in seconds) the timer should be set to if enabled | `300` |
 | `pollingInterval` _(optional)_ | If `checkStatus` is set to `polling`, this is the time (in ms) between status checks| `3000` |
+| `headers` _(optional)_ | If need Authorization for api | `{}` |
 
 ### Additional fields
 | Key | Description | Default |
@@ -77,7 +78,8 @@ This [homebridge](https://github.com/nfarina/homebridge) plugin exposes a web-ba
        "offValue": "Off",
        "useTimer": "yes",
        "defaultTime": 900,
-       "httpMethod": "GET"
+       "httpMethod": "GET",
+       "headers":"{"Authorization":"Basic 123123123"}"
      }
 ]
 ```    
