@@ -121,7 +121,7 @@ HttpSprinkler.prototype = {
 
     var url = this.statusUrl;
 
-    this.httpRequest(url, "", "{}", this.httpMethod, function(error, response, responseBody) {
+    this.httpRequest(url, "", this.headers, this.httpMethod, function(error, response, responseBody) {
       if (error) {
         this.log('HTTP get status function failed: %s', error.message);
         callback(error);
@@ -166,7 +166,7 @@ HttpSprinkler.prototype = {
       this.log("Setting power state to off");
     }
 
-    this.httpRequest(url, "", this.httpMethod, function(error, response, body) {
+    this.httpRequest(url, "", this.headers, this.httpMethod, function(error, response, body) {
       if (error) {
         that.log("HTTP set status function failed %s", error.message);
       }
@@ -202,7 +202,7 @@ HttpSprinkler.prototype = {
       this.log("Setting power state to off");
     }
 
-    this.httpRequest(url, "", this.httpMethod, function(error, response, body) {
+    this.httpRequest(url, "", this.headers, this.httpMethod, function(error, response, body) {
       if (error) {
         that.log("HTTP set status function failed %s", error.message);
       }
