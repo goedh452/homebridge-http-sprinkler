@@ -25,7 +25,6 @@ function HttpSprinkler(log, config) {
   this.timeout = config.timeout || 5000;
   this.pollingInterval = config.pollingInterval || 3000;
   this.checkStatus = config.checkStatus || "no";
-  this.headers = config.headers || "{}"
 
   this.jsonPath = config.jsonPath;
   this.onValue = config.onValue || "On";
@@ -45,7 +44,7 @@ function HttpSprinkler(log, config) {
   if (this.statusUrl && this.checkStatus === "polling") {
     var powerurl = this.statusUrl;
     var statusemitter = pollingtoevent(function(done) {
-      that.httpRequest(powerurl, "", this.headers, this.httpMethod, function(error, response, body) {
+      that.httpRequest(powerurl, "", this.httpMethod, function(error, response, body) {
         if (error) {
           that.log('HTTP get status function failed: %s', error.message);
           try {
@@ -91,7 +90,7 @@ function HttpSprinkler(log, config) {
 
 HttpSprinkler.prototype = {
 
-  httpRequest: function(url, body, urlHeaders, method, callback) {
+  httpRequest: function(url, body, method, callback) {
     var callbackMethod = callback;
 
     request({
@@ -99,7 +98,6 @@ HttpSprinkler.prototype = {
         body: body,
         method: this.httpMethod,
         timeout: this.timeout,
-        headers : JSON.parse(urlHeaders),
         rejectUnauthorized: false
       },
       function(error, response, responseBody) {
@@ -121,7 +119,7 @@ HttpSprinkler.prototype = {
 
     var url = this.statusUrl;
 
-    this.httpRequest(url, "", this.headers, this.httpMethod, function(error, response, responseBody) {
+    this.httpRequest(url, "", this.httpMethod, function(error, response, responseBody) {
       if (error) {
         this.log('HTTP get status function failed: %s', error.message);
         callback(error);
@@ -166,7 +164,7 @@ HttpSprinkler.prototype = {
       this.log("Setting power state to off");
     }
 
-    this.httpRequest(url, "", this.headers, this.httpMethod, function(error, response, body) {
+    this.httpRequest(url, "", this.httpMethod, function(error, response, body) {
       if (error) {
         that.log("HTTP set status function failed %s", error.message);
       }
@@ -202,7 +200,7 @@ HttpSprinkler.prototype = {
       this.log("Setting power state to off");
     }
 
-    this.httpRequest(url, "", this.headers, this.httpMethod, function(error, response, body) {
+    this.httpRequest(url, "", this.httpMethod, function(error, response, body) {
       if (error) {
         that.log("HTTP set status function failed %s", error.message);
       }
