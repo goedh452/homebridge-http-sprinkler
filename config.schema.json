@@ -1,0 +1,150 @@
+{
+	"pluginAlias": "HttpSprinkler",
+	"pluginType": "accessory",
+	"singular": false,
+	"headerDisplay": "This homebridge plugin exposes a web-based sprinkler/valve to Apple's HomeKit and allows you to control it via HTTP requests.",
+	"footerDisplay": "",
+	"schema": {
+		"type": "object",
+		"properties": {
+			"name": {
+				"title": "Name",
+				"type": "string",
+				"default": "Sprinkler",
+				"required": true
+			},
+			"onUrl": {
+				"title": "URL to turn sprinkler ON",
+				"type": "string",
+				"required": true,
+				"description": ""
+			},
+			"offUrl": {
+				"title": "URL to turn sprinkler OFF",
+				"type": "string",
+				"required": true,
+				"description": ""
+			},
+			"icon": {
+				"title": "Icon",
+				"type": "integer",
+				"required": false,
+        "default": 0,
+				"description": "Icon to be shown in the Home app (0, 1, 2, 3)",
+        "oneOf": [
+          {
+            "title": "0",
+            "enum": [0]
+          },
+          {
+            "title": "1",
+            "enum": [1]
+          },
+          {
+            "title": "2",
+            "enum": [2]
+          },
+          {
+            "title": "3",
+            "enum": [3]
+          }
+        ]
+			},
+      "checkStatus": {
+				"title": "Check status",
+				"type": "string",
+				"required": false,
+				"default": "no",
+				"description": "Setting for checking status of the switch (polling: every x seconds, once: one time at startup, no: no checking status)",
+        "oneOf": [
+          {
+            "title": "Polling",
+            "enum": ["polling"]
+          },
+          {
+            "title": "Once",
+            "enum": ["once"]
+          },
+          {
+            "title": "No",
+            "enum": ["no"]
+          }
+        ]
+			},
+      "jsonPath": {
+				"title": "JSON path with value of status",
+				"type": "string",
+				"required": false,
+				"description": "JSON Path where the status can be found - required when checkStatus is once or polling (e.g. result[0].Status)"
+			},
+      "onValue": {
+				"title": "Value for ON",
+				"type": "string",
+				"required": false,
+				"description": "Value for On - required when checkStatus is once or polling"
+			},
+      "offValue": {
+				"title": "Value for OFF",
+				"type": "string",
+				"description": "Value for Off - required when checkStatus is once or polling"
+			},
+      "useTimer": {
+				"title": "Use timer",
+				"type": "string",
+				"required": false,
+         "oneOf": [
+          {
+            "title": "Yes",
+            "enum": ["yes"]
+          },
+          {
+            "title": "No",
+            "enum": ["no"]
+          }
+        ]
+			},
+      "pollingInterval": {
+				"title": "pollingInterval",
+				"type": "integer",
+				"default": 3000,
+				"required": false,
+        "description": "Time in milliseconds between polling the status - required when checkStatus polling"
+			},
+      "timeout": {
+				"title": "Timeout ",
+				"type": "integer",
+				"default": 5000,
+				"required": false,
+        "description": "Time in milliseconds until the accessory will be marked as Not Responding if it is unreachable"
+			},
+      "httpMethod": {
+				"title": "HTTP Method",
+				"type": "string",
+				"default": "GET",
+				"required": false,
+        "description": "HTTP method used to communicate with the device"
+			},
+      "model": {
+				"title": "Model",
+				"type": "string",
+				"default": "homebridge-http-sprinkler",
+				"required": false,
+        "description": "Appears in the Model field of the accessory"
+			},
+      "serial": {
+				"title": "Serial",
+				"type": "string",
+				"default": "homebridge-http-sprinkler",
+				"required": false,
+        "description": "Appears in the Serial field of the accessory"
+			},
+      "manufacturer": {
+				"title": "Manufacturer",
+				"type": "string",
+				"default": "goedh452",
+				"required": false,
+        "description": "Appears in the Manufacturer field of the accessory"
+			}
+    }
+	}
+}
